@@ -195,6 +195,7 @@
       <a href="#fitur" data-i18n="nav_features">Keunggulan</a>
       <a href="#cara" data-i18n="nav_how">Cara Kerja</a>
       <a href="#lokasi" data-i18n="nav_location">Lokasi</a>
+      <a href="#backup" data-i18n="nav_backup">Backup</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-right">
@@ -245,6 +246,7 @@
         <div class="feat"><div class="ico">🛡️</div><h3 data-i18n="f2t">Keamanan Berlapis</h3><p data-i18n="f2d">Isolasi container per pelanggan, HTTPS otomatis, dan sertifikat TLS yang diperbarui tanpa intervensi.</p></div>
         <div class="feat"><div class="ico">📈</div><h3 data-i18n="f3t">Skalabel Tanpa Henti</h3><p data-i18n="f3d">Naikkan CPU, RAM, dan penyimpanan kapan saja. Beban kerja Anda tumbuh, layanan tetap berjalan.</p></div>
         <div class="feat"><div class="ico">💳</div><h3 data-i18n="f4t">Harga Rupiah Transparan</h3><p data-i18n="f4d">Semua harga dalam Rupiah, ditagih bulanan. Tanpa biaya setup, tanpa biaya tersembunyi.</p></div>
+        <div class="feat"><div class="ico">💾</div><h3 data-i18n="f7t">Backup Otomatis</h3><p data-i18n="f7d">Backup terjadwal tiap 6/12/24 jam, tersimpan di object storage Indonesia, siap dipulihkan kapan saja.</p></div>
         <div class="feat"><div class="ico">🗄️</div><h3 data-i18n="f5t">Storage S3-Compatible</h3><p data-i18n="f5d">Object storage yang kompatibel dengan S3 — siap dipakai untuk backup, media, dan arsip jangka panjang.</p></div>
         <div class="feat"><div class="ico">🧭</div><h3 data-i18n="f6t">Panel Sederhana</h3><p data-i18n="f6d">Kelola layanan, tagihan, dan kredensial dari satu dasbor. Buka server Anda dengan satu klik.</p></div>
       </div>
@@ -411,6 +413,34 @@
     </div>
   </section>
 
+
+  <!-- BACKUP -->
+  <section id="backup">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow" data-i18n="bk_eyebrow">Backup &amp; Disaster Recovery</div>
+        <h2 data-i18n="bk_title">Jangan biarkan data Anda hilang</h2>
+        <p class="lead" data-i18n="bk_lead">Tambahkan backup otomatis ke paket apa pun — hanya 20% dari harga paket Anda. Backup disimpan di object storage Indonesia dan bisa dipulihkan kapan saja.</p>
+      </div>
+      <div class="grid" style="margin-top:44px">
+        <div class="card hot">
+          <span class="tag" data-i18n="bk_tag">Add-on</span>
+          <h3 data-i18n="bk_name">Backup Otomatis</h3>
+          <div class="spec"><span data-i18n="loc_id">🇮🇩 Indonesia</span><span data-i18n="bk_s1">Snapshot volume /data</span><span data-i18n="bk_s2">Retensi bergulir</span></div>
+          <div class="price"><b data-i18n="bk_price">20%</b><i data-i18n="bk_of">dari harga paket Anda</i></div>
+          <ul>
+            <li data-i18n="bk_l1">Frekuensi 6 jam / 12 jam / 24 jam</li>
+            <li data-i18n="bk_l2">Contoh: server Rp 350.000 → backup Rp 70.000/bulan</li>
+            <li data-i18n="bk_l3">Contoh: server Rp 950.000 → backup Rp 190.000/bulan</li>
+            <li data-i18n="bk_l4">Pemulihan (restore) kapan saja</li>
+            <li data-i18n="bk_l5">Tersimpan terpisah dari server Anda</li>
+          </ul>
+          <a class="btn btn-gold" href="#produk" data-i18n="bk_cta">Tambah ke Paket</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- HOW -->
   <section id="cara">
     <div class="wrap">
@@ -475,6 +505,7 @@
         <a href="#fitur" data-i18n="nav_features">Keunggulan</a>
         <a href="#cara" data-i18n="nav_how">Cara Kerja</a>
         <a href="#lokasi" data-i18n="nav_location">Lokasi</a>
+      <a href="#backup" data-i18n="nav_backup">Backup</a>
       <a href="#faq">FAQ</a>
       </div>
       <div class="fcol">
@@ -520,6 +551,15 @@ const I18N = {
     s_li3:"Backup harian otomatis", s_li4:"HTTPS & akses privat",
     s_li5:"Untuk media aplikasi & arsip dokumen", s_li6:"Untuk data besar & arsip jangka panjang",
     loc_id:"🇮🇩 Indonesia", loc_label:"Lokasi",
+    f7t:"Backup Otomatis", f7d:"Backup terjadwal tiap 6/12/24 jam, tersimpan di object storage Indonesia, siap dipulihkan kapan saja.",
+    nav_backup:"Backup",
+    bk_eyebrow:"Backup & Disaster Recovery", bk_title:"Jangan biarkan data Anda hilang",
+    bk_lead:"Tambahkan backup otomatis ke paket apa pun — hanya 20% dari harga paket Anda. Backup disimpan di object storage Indonesia dan bisa dipulihkan kapan saja.",
+    bk_tag:"Add-on", bk_name:"Backup Otomatis", bk_s1:"Snapshot volume /data", bk_s2:"Retensi bergulir",
+    bk_price:"20%", bk_of:"dari harga paket Anda",
+    bk_l1:"Frekuensi 6 jam / 12 jam / 24 jam", bk_l2:"Contoh: server Rp 350.000 → backup Rp 70.000/bulan",
+    bk_l3:"Contoh: server Rp 950.000 → backup Rp 190.000/bulan", bk_l4:"Pemulihan (restore) kapan saja",
+    bk_l5:"Tersimpan terpisah dari server Anda", bk_cta:"Tambah ke Paket",
     loc_eyebrow:"Lokasi Server", loc_title:"Semua server kami berada di Indonesia",
     loc_lead:"Data Anda tersimpan di dalam negeri, dengan latensi rendah ke pengguna di seluruh Indonesia.",
     l1t:"Datacenter Indonesia", l1d:"Seluruh server beroperasi di datacenter dalam negeri — bukan luar negeri.",
@@ -571,6 +611,15 @@ const I18N = {
     s_li3:"Automatic daily backup", s_li4:"HTTPS & private access",
     s_li5:"For app media & document archives", s_li6:"For large data & long-term archives",
     loc_id:"🇮🇩 Indonesia", loc_label:"Location",
+    f7t:"Automatic Backup", f7d:"Scheduled backups every 6/12/24 hours, stored in Indonesian object storage, restorable anytime.",
+    nav_backup:"Backup",
+    bk_eyebrow:"Backup & Disaster Recovery", bk_title:"Don't let your data disappear",
+    bk_lead:"Add automatic backup to any plan — just 20% of your plan price. Backups are stored in Indonesian object storage and can be restored anytime.",
+    bk_tag:"Add-on", bk_name:"Automatic Backup", bk_s1:"/data volume snapshot", bk_s2:"Rolling retention",
+    bk_price:"20%", bk_of:"of your plan price",
+    bk_l1:"Frequency 6h / 12h / 24h", bk_l2:"Example: Rp 350,000 server → Rp 70,000/month backup",
+    bk_l3:"Example: Rp 950,000 server → Rp 190,000/month backup", bk_l4:"Restore anytime",
+    bk_l5:"Stored separately from your server", bk_cta:"Add to Plan",
     loc_eyebrow:"Server Location", loc_title:"All our servers are located in Indonesia",
     loc_lead:"Your data stays in the country, with low latency for users across Indonesia.",
     l1t:"Indonesian Datacenter", l1d:"Every server runs in a domestic datacenter — not offshore.",
