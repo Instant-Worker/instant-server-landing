@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id" data-lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instant Server — Cloud Server & Object Storage Indonesia</title>
+<meta name="description" content="Cloud server dan object storage berperforma tinggi dari Indonesia. Aktif dalam hitungan detik, harga transparan dalam Rupiah.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07070b;
+    --bg-2:#0c0c13;
+    --panel:rgba(255,255,255,.035);
+    --panel-2:rgba(255,255,255,.055);
+    --line:rgba(255,255,255,.09);
+    --line-2:rgba(255,255,255,.16);
+    --text:#f4f4f7;
+    --muted:#9a9aa8;
+    --gold:#d8b26a;
+    --gold-2:#f0d9a8;
+    --gold-dim:rgba(216,178,106,.14);
+    --ok:#6ee7a8;
+    --radius:18px;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400}
+
+  /* ---------- ambient background ---------- */
+  .glow{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .glow i{position:absolute;display:block;border-radius:50%;filter:blur(90px);opacity:.5}
+  .glow i:nth-child(1){width:620px;height:620px;top:-260px;left:-160px;background:radial-gradient(circle,rgba(216,178,106,.30),transparent 65%)}
+  .glow i:nth-child(2){width:520px;height:520px;top:120px;right:-180px;background:radial-gradient(circle,rgba(88,101,242,.24),transparent 65%)}
+  .glow i:nth-child(3){width:700px;height:700px;bottom:-320px;left:35%;background:radial-gradient(circle,rgba(216,178,106,.14),transparent 68%)}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+  main,header,footer{position:relative;z-index:2}
+
+  /* ---------- nav ---------- */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);
+    background:rgba(7,7,11,.72);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:32px;height:74px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em;font-size:19px}
+  .mark{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;
+    background:linear-gradient(140deg,var(--gold-2),var(--gold));color:#17130a;font-weight:800;font-size:15px;
+    box-shadow:0 0 0 1px rgba(216,178,106,.5),0 8px 24px -8px rgba(216,178,106,.6)}
+  .nav-links{display:flex;gap:28px;margin-left:12px;font-size:14.5px;color:var(--muted)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:12.5px;font-weight:600}
+  .lang button{background:none;border:0;color:var(--muted);padding:7px 13px;cursor:pointer;font-family:inherit;font-weight:600;transition:.2s}
+  .lang button.on{background:var(--gold);color:#17130a}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:999px;font-size:14.5px;
+    font-weight:600;border:1px solid transparent;cursor:pointer;transition:.25s;font-family:inherit;white-space:nowrap}
+  .btn-gold{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#17130a;
+    box-shadow:0 10px 30px -12px rgba(216,178,106,.75)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 38px -12px rgba(216,178,106,.85)}
+  .btn-ghost{border-color:var(--line-2);color:var(--text);background:var(--panel)}
+  .btn-ghost:hover{background:var(--panel-2);border-color:var(--gold)}
+  .btn-sm{padding:9px 17px;font-size:13.5px}
+  .burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;color:var(--text);
+    width:40px;height:38px;cursor:pointer;font-size:17px}
+
+  /* ---------- hero ---------- */
+  .hero{padding:96px 0 84px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:9px;padding:7px 15px;border-radius:999px;
+    border:1px solid var(--line-2);background:var(--panel);font-size:12.5px;color:var(--muted);margin-bottom:26px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(110,231,168,.18)}
+  h1{font-size:clamp(38px,6.4vw,74px);line-height:1.03;letter-spacing:-.035em;font-weight:800}
+  h1 .gold{background:linear-gradient(120deg,var(--gold-2),var(--gold) 55%,#b98f45);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 em{font-style:italic;font-weight:400}
+  .sub{max-width:620px;margin:24px auto 0;color:var(--muted);font-size:clamp(15px,1.9vw,18.5px);line-height:1.65}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+  .stats{display:flex;justify-content:center;gap:clamp(28px,7vw,86px);margin-top:72px;flex-wrap:wrap}
+  .stat b{display:block;font-size:clamp(24px,3.6vw,34px);font-weight:800;letter-spacing:-.03em}
+  .stat span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+
+  /* ---------- section ---------- */
+  section{padding:88px 0}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:16px}
+  h2{font-size:clamp(28px,4vw,44px);line-height:1.12;letter-spacing:-.03em;font-weight:800}
+  .lead{color:var(--muted);max-width:640px;margin-top:16px;font-size:16px}
+  .center{text-align:center}
+  .center .lead{margin-left:auto;margin-right:auto}
+
+  /* ---------- features ---------- */
+  .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:52px}
+  .feat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px;
+    transition:.3s;position:relative;overflow:hidden}
+  .feat:hover{border-color:var(--line-2);background:var(--panel-2);transform:translateY(-3px)}
+  .feat .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;
+    background:var(--gold-dim);border:1px solid rgba(216,178,106,.28);font-size:19px}
+  .feat h3{font-size:16.5px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
+  .feat p{color:var(--muted);font-size:14.2px;line-height:1.62}
+
+  /* ---------- products ---------- */
+  .tabs{display:inline-flex;gap:5px;padding:5px;border-radius:999px;border:1px solid var(--line);
+    background:var(--panel);margin:34px auto 0}
+  .tab{background:none;border:0;color:var(--muted);padding:10px 22px;border-radius:999px;cursor:pointer;
+    font-family:inherit;font-size:14px;font-weight:600;transition:.22s}
+  .tab.on{background:var(--gold);color:#17130a}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:20px;margin-top:44px}
+  .card{background:linear-gradient(170deg,var(--panel-2),var(--panel));border:1px solid var(--line);
+    border-radius:22px;padding:30px 26px;display:flex;flex-direction:column;position:relative;transition:.32s}
+  .card:hover{transform:translateY(-5px);border-color:rgba(216,178,106,.45);
+    box-shadow:0 26px 60px -30px rgba(216,178,106,.42)}
+  .card.hot{border-color:rgba(216,178,106,.55);box-shadow:0 0 0 1px rgba(216,178,106,.2) inset}
+  .tag{position:absolute;top:-11px;left:26px;background:linear-gradient(135deg,var(--gold-2),var(--gold));
+    color:#17130a;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    padding:5px 12px;border-radius:999px}
+  .card h3{font-size:19px;font-weight:800;letter-spacing:-.02em}
+  .spec{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 20px}
+  .spec span{font-size:12px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);
+    color:var(--muted);background:rgba(255,255,255,.02)}
+  .price{display:flex;align-items:flex-end;gap:6px;padding:18px 0;border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line)}
+  .price b{font-size:30px;font-weight:800;letter-spacing:-.035em;line-height:1}
+  .price i{font-style:normal;color:var(--muted);font-size:13px;padding-bottom:3px}
+  .card ul{list-style:none;margin:20px 0 24px;display:grid;gap:10px;font-size:13.6px;color:var(--muted)}
+  .card li{display:flex;gap:9px;align-items:flex-start}
+  .card li::before{content:"✓";color:var(--gold);font-weight:800;font-size:12.5px;margin-top:1px}
+  .card .btn{margin-top:auto;justify-content:center}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:50px}
+  .step{padding:26px;border-radius:var(--radius);border:1px solid var(--line);background:var(--panel)}
+  .step b{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;margin-bottom:16px;
+    background:var(--gold);color:#17130a;font-size:14px;font-weight:800}
+  .step h4{font-size:15.5px;font-weight:700;margin-bottom:7px}
+  .step p{color:var(--muted);font-size:13.8px}
+
+  /* ---------- faq ---------- */
+  .faq{max-width:820px;margin:46px auto 0;display:grid;gap:12px}
+  details{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+  details[open]{border-color:var(--line-2)}
+  summary{padding:19px 24px;cursor:pointer;font-weight:600;font-size:15.2px;list-style:none;
+    display:flex;justify-content:space-between;align-items:center;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--gold);font-size:20px;font-weight:400;transition:.2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding:0 24px 22px;color:var(--muted);font-size:14.4px}
+
+  /* ---------- cta band ---------- */
+  .band{border-radius:26px;padding:60px 40px;text-align:center;position:relative;overflow:hidden;
+    border:1px solid rgba(216,178,106,.32);
+    background:linear-gradient(140deg,rgba(216,178,106,.14),rgba(88,101,242,.10) 55%,rgba(255,255,255,.03))}
+  .band h2{margin-bottom:14px}
+  .band p{color:var(--muted);max-width:560px;margin:0 auto 30px}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:52px 0 40px;margin-top:40px}
+  .fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px}
+  .fcol h5{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:16px;font-weight:700}
+  .fcol a,.fcol p{display:block;color:var(--muted);font-size:13.8px;margin-bottom:10px;transition:.2s}
+  .fcol a:hover{color:var(--text)}
+  .fbot{margin-top:44px;padding-top:24px;border-top:1px solid var(--line);display:flex;
+    justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12.8px}
+
+  @media (max-width:880px){
+    .nav-links{display:none}
+    .burger{display:block}
+    .fgrid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:560px){
+    .hero{padding:64px 0 56px}
+    section{padding:64px 0}
+    .band{padding:44px 22px}
+    .fgrid{grid-template-columns:1fr}
+    .nav-right .btn{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="glow"><i></i><i></i><i></i></div>
+<div class="grain"></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="mark">IS</span> Instant Server</a>
+    <nav class="nav-links">
+      <a href="#produk" data-i18n="nav_products">Produk</a>
+      <a href="#fitur" data-i18n="nav_features">Keunggulan</a>
+      <a href="#cara" data-i18n="nav_how">Cara Kerja</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button id="lang-id" class="on" onclick="setLang('id')">ID</button>
+        <button id="lang-en" onclick="setLang('en')">EN</button>
+      </div>
+      <a class="btn btn-gold btn-sm" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/register" data-i18n="nav_cta">Mulai Sekarang</a>
+      <button class="burger" onclick="document.querySelector('.nav-links').style.display='flex'" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="pill"><span class="dot"></span><span data-i18n="hero_pill">Datacenter Asia · Aktif dalam hitungan detik</span></div>
+      <h1>
+        <span data-i18n="hero_t1">Infrastruktur kelas</span>
+        <span class="gold serif"><em data-i18n="hero_t2">enterprise</em></span><br>
+        <span data-i18n="hero_t3">untuk bisnis Anda.</span>
+      </h1>
+      <p class="sub" data-i18n="hero_sub">Cloud server dan object storage berperforma tinggi, dengan harga transparan dalam Rupiah. Tanpa biaya tersembunyi, tanpa kontrak panjang — aktif dalam hitungan detik.</p>
+      <div class="cta">
+        <a class="btn btn-gold" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/cloud-server" data-i18n="hero_cta1">Lihat Paket &amp; Harga</a>
+        <a class="btn btn-ghost" href="#cara" data-i18n="hero_cta2">Cara Kerja</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>99,9%</b><span data-i18n="stat_uptime">Uptime SLA</span></div>
+        <div class="stat"><b>&lt; 60<span style="font-size:.55em">s</span></b><span data-i18n="stat_deploy">Waktu Aktif</span></div>
+        <div class="stat"><b>24/7</b><span data-i18n="stat_support">Dukungan</span></div>
+        <div class="stat"><b>NVMe</b><span data-i18n="stat_disk">Penyimpanan SSD</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="fitur">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow" data-i18n="feat_eyebrow">Keunggulan</div>
+        <h2 data-i18n="feat_title">Dibangun untuk kecepatan dan ketenangan</h2>
+        <p class="lead" data-i18n="feat_lead">Semua yang Anda butuhkan untuk menjalankan aplikasi produksi — tanpa kerumitan, tanpa kejutan di tagihan.</p>
+      </div>
+      <div class="feats">
+        <div class="feat"><div class="ico">⚡</div><h3 data-i18n="f1t">Aktif Seketika</h3><p data-i18n="f1d">Server Anda langsung berjalan begitu pembayaran terkonfirmasi. Tidak perlu menunggu aktivasi manual.</p></div>
+        <div class="feat"><div class="ico">🛡️</div><h3 data-i18n="f2t">Keamanan Berlapis</h3><p data-i18n="f2d">Isolasi container per pelanggan, HTTPS otomatis, dan sertifikat TLS yang diperbarui tanpa intervensi.</p></div>
+        <div class="feat"><div class="ico">📈</div><h3 data-i18n="f3t">Skalabel Tanpa Henti</h3><p data-i18n="f3d">Naikkan CPU, RAM, dan penyimpanan kapan saja. Beban kerja Anda tumbuh, layanan tetap berjalan.</p></div>
+        <div class="feat"><div class="ico">💳</div><h3 data-i18n="f4t">Harga Rupiah Transparan</h3><p data-i18n="f4d">Semua harga dalam Rupiah, ditagih bulanan. Tanpa biaya setup, tanpa biaya tersembunyi.</p></div>
+        <div class="feat"><div class="ico">🗄️</div><h3 data-i18n="f5t">Storage S3-Compatible</h3><p data-i18n="f5d">Object storage yang kompatibel dengan S3 — siap dipakai untuk backup, media, dan arsip jangka panjang.</p></div>
+        <div class="feat"><div class="ico">🧭</div><h3 data-i18n="f6t">Panel Sederhana</h3><p data-i18n="f6d">Kelola layanan, tagihan, dan kredensial dari satu dasbor. Buka server Anda dengan satu klik.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="produk">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow" data-i18n="prod_eyebrow">Produk</div>
+        <h2 data-i18n="prod_title">Pilih yang sesuai kebutuhan Anda</h2>
+        <p class="lead" data-i18n="prod_lead">Harga per bulan, sudah termasuk bandwidth. Bisa berhenti kapan saja.</p>
+        <div class="tabs">
+          <button class="tab on" data-cat="vps" onclick="showCat('vps',this)" data-i18n="tab_vps">Cloud Server</button>
+          <button class="tab" data-cat="sto" onclick="showCat('sto',this)" data-i18n="tab_sto">Object Storage</button>
+        </div>
+      </div>
+
+      <div class="grid" id="grid-vps">
+        <div class="card">
+          <h3>Cloud Server VS1</h3>
+          <div class="spec"><span>1 vCPU</span><span>1 GB RAM</span><span>20 GB NVMe</span><span>1 TB transfer</span></div>
+          <div class="price"><b>Rp 350.000</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="v_li1">1 alamat IPv4 publik</li>
+            <li data-i18n="v_li2">Akses root penuh (SSH)</li>
+            <li data-i18n="v_li3">HTTPS otomatis + sertifikat TLS</li>
+            <li data-i18n="v_li4">Cocok untuk web, bot, aplikasi ringan</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/cloud-server/cloud-server-vs1/checkout">Pesan Sekarang</a>
+        </div>
+        <div class="card">
+          <h3>Cloud Server VS2</h3>
+          <div class="spec"><span>1 vCPU</span><span>2 GB RAM</span><span>40 GB NVMe</span><span>2 TB transfer</span></div>
+          <div class="price"><b>Rp 550.000</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="v_li1">1 alamat IPv4 publik</li>
+            <li data-i18n="v_li2">Akses root penuh (SSH)</li>
+            <li data-i18n="v_li3">HTTPS otomatis + sertifikat TLS</li>
+            <li data-i18n="v_li5">Ideal untuk website &amp; REST API</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/cloud-server/cloud-server-vs2/checkout">Pesan Sekarang</a>
+        </div>
+        <div class="card hot">
+          <span class="tag" data-i18n="popular">Paling Populer</span>
+          <h3>Cloud Server VS3</h3>
+          <div class="spec"><span>2 vCPU</span><span>4 GB RAM</span><span>80 GB NVMe</span><span>4 TB transfer</span></div>
+          <div class="price"><b>Rp 950.000</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="v_li1">1 alamat IPv4 publik</li>
+            <li data-i18n="v_li2">Akses root penuh (SSH)</li>
+            <li data-i18n="v_li3">HTTPS otomatis + sertifikat TLS</li>
+            <li data-i18n="v_li6">Siap untuk database &amp; produksi</li>
+          </ul>
+          <a class="btn btn-gold" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/cloud-server/cloud-server-vs3/checkout">Pesan Sekarang</a>
+        </div>
+        <div class="card">
+          <h3>Cloud Server VS4</h3>
+          <div class="spec"><span>2 vCPU</span><span>8 GB RAM</span><span>160 GB NVMe</span><span>8 TB transfer</span></div>
+          <div class="price"><b>Rp 1.450.000</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="v_li1">1 alamat IPv4 publik</li>
+            <li data-i18n="v_li2">Akses root penuh (SSH)</li>
+            <li data-i18n="v_li3">HTTPS otomatis + sertifikat TLS</li>
+            <li data-i18n="v_li7">Untuk aplikasi menengah &amp; analitik</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/cloud-server/cloud-server-vs4/checkout">Pesan Sekarang</a>
+        </div>
+        <div class="card">
+          <h3>Cloud Server VS5</h3>
+          <div class="spec"><span>4 vCPU</span><span>16 GB RAM</span><span>320 GB NVMe</span><span>16 TB transfer</span></div>
+          <div class="price"><b>Rp 2.500.000</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="v_li1">1 alamat IPv4 publik</li>
+            <li data-i18n="v_li2">Akses root penuh (SSH)</li>
+            <li data-i18n="v_li3">HTTPS otomatis + sertifikat TLS</li>
+            <li data-i18n="v_li8">Beban tinggi &amp; banyak container</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/cloud-server/cloud-server-vs5/checkout">Pesan Sekarang</a>
+        </div>
+      </div>
+
+      <div class="grid" id="grid-sto" style="display:none">
+        <div class="card">
+          <h3>Object Storage ST1</h3>
+          <div class="spec"><span>50 GB</span><span>S3-compatible</span><span>250 GB transfer</span></div>
+          <div class="price"><b>Rp 350.000</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="s_li1">Endpoint S3 + kredensial akses sendiri</li>
+            <li data-i18n="s_li2">Cocok untuk aset web &amp; foto</li>
+            <li data-i18n="s_li3">Backup harian otomatis</li>
+            <li data-i18n="s_li4">HTTPS &amp; akses privat</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/object-storage/object-storage-st1/checkout">Pesan Sekarang</a>
+        </div>
+        <div class="card hot">
+          <span class="tag" data-i18n="popular">Paling Populer</span>
+          <h3>Object Storage ST2</h3>
+          <div class="spec"><span>250 GB</span><span>S3-compatible</span><span>1 TB transfer</span></div>
+          <div class="price"><b>Rp 900.000</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="s_li1">Endpoint S3 + kredensial akses sendiri</li>
+            <li data-i18n="s_li5">Untuk media aplikasi &amp; arsip dokumen</li>
+            <li data-i18n="s_li3">Backup harian otomatis</li>
+            <li data-i18n="s_li4">HTTPS &amp; akses privat</li>
+          </ul>
+          <a class="btn btn-gold" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/object-storage/object-storage-st2/checkout">Pesan Sekarang</a>
+        </div>
+        <div class="card">
+          <h3>Object Storage ST3</h3>
+          <div class="spec"><span>1 TB</span><span>S3-compatible</span><span>5 TB transfer</span></div>
+          <div class="price"><b>Rp 1.900.000</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="s_li1">Endpoint S3 + kredensial akses sendiri</li>
+            <li data-i18n="s_li6">Untuk data besar &amp; arsip jangka panjang</li>
+            <li data-i18n="s_li3">Backup harian otomatis</li>
+            <li data-i18n="s_li4">HTTPS &amp; akses privat</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/object-storage/object-storage-st3/checkout">Pesan Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="cara">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow" data-i18n="how_eyebrow">Cara Kerja</div>
+        <h2 data-i18n="how_title">Tiga langkah, server Anda siap</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><b>1</b><h4 data-i18n="h1t">Pilih paket</h4><p data-i18n="h1d">Tentukan spesifikasi yang sesuai kebutuhan Anda dan selesaikan pembayaran.</p></div>
+        <div class="step"><b>2</b><h4 data-i18n="h2t">Provisioning otomatis</h4><p data-i18n="h2d">Sistem kami menyiapkan server Anda seketika setelah pembayaran terkonfirmasi.</p></div>
+        <div class="step"><b>3</b><h4 data-i18n="h3t">Langsung pakai</h4><p data-i18n="h3d">Terima alamat server dan kredensial akses dari dasbor Anda, lalu mulai bekerja.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow">FAQ</div>
+        <h2 data-i18n="faq_title">Pertanyaan yang sering diajukan</h2>
+      </div>
+      <div class="faq">
+        <details open><summary data-i18n="q1">Apakah harga sudah termasuk PPN?</summary><p data-i18n="a1">Harga yang tertera adalah harga layanan. Pajak ditambahkan sesuai ketentuan yang berlaku pada saat penagihan.</p></details>
+        <details><summary data-i18n="q2">Metode pembayaran apa yang tersedia?</summary><p data-i18n="a2">Kami mendukung transfer bank, virtual account, QRIS, dan dompet digital. Metode akan muncul saat Anda melakukan pembayaran.</p></details>
+        <details><summary data-i18n="q3">Bisakah saya upgrade atau downgrade?</summary><p data-i18n="a3">Bisa. Paket dapat dinaikkan atau diturunkan kapan saja; penagihan akan menyesuaikan pada siklus berikutnya.</p></details>
+        <details><summary data-i18n="q4">Apa yang terjadi kalau saya berhenti berlangganan?</summary><p data-i18n="a4">Layanan Anda dinonaktifkan saat jatuh tempo, dan dihentikan sepenuhnya setelah masa tenggang. Data dapat Anda ambil sebelum layanan dihentikan.</p></details>
+        <details><summary data-i18n="q5">Apakah ada jaminan uptime?</summary><p data-i18n="a5">Kami menargetkan uptime 99,9% dengan pemantauan 24/7 dan dukungan teknis yang siap membantu.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="wrap">
+      <div class="band">
+        <h2 data-i18n="cta_title">Siap memulai?</h2>
+        <p data-i18n="cta_sub">Buat akun dan jalankan server pertama Anda hari ini. Tanpa biaya setup, tanpa kontrak panjang.</p>
+        <div class="cta" style="margin-top:0">
+          <a class="btn btn-gold" href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/register" data-i18n="cta_btn1">Mulai Sekarang</a>
+          <a class="btn btn-ghost" href="#faq" data-i18n="cta_btn2">Hubungi Kami</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fcol">
+        <a class="brand" href="#top" style="margin-bottom:16px"><span class="mark">IS</span> Instant Server</a>
+        <p data-i18n="foot_about">Cloud server dan object storage untuk bisnis Indonesia. Cepat, transparan, dan siap skala.</p>
+      </div>
+      <div class="fcol">
+        <h5 data-i18n="foot_prod">Produk</h5>
+        <a href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/cloud-server" data-i18n="tab_vps">Cloud Server</a>
+        <a href="https://paymenter-4eigd6u7cnlrn5qlhnwtlaeu.5.223.60.108.sslip.io/products/object-storage" data-i18n="tab_sto">Object Storage</a>
+      </div>
+      <div class="fcol">
+        <h5 data-i18n="foot_comp">Perusahaan</h5>
+        <a href="#fitur" data-i18n="nav_features">Keunggulan</a>
+        <a href="#cara" data-i18n="nav_how">Cara Kerja</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="fcol">
+        <h5 data-i18n="foot_support">Dukungan</h5>
+        <a href="#faq" data-i18n="foot_help">Pusat Bantuan</a>
+        <a href="#faq" data-i18n="foot_contact">Hubungi Kami</a>
+        <a href="#faq" data-i18n="foot_status">Status Layanan</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© <span id="yr"></span> Instant Server. <span data-i18n="foot_rights">Seluruh hak dilindungi.</span></span>
+      <span data-i18n="foot_legal">Syarat Layanan · Kebijakan Privasi</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+  id: {
+    nav_products:"Produk", nav_features:"Keunggulan", nav_how:"Cara Kerja", nav_cta:"Mulai Sekarang",
+    hero_pill:"Datacenter Asia · Aktif dalam hitungan detik",
+    hero_t1:"Infrastruktur kelas", hero_t2:"enterprise", hero_t3:"untuk bisnis Anda.",
+    hero_sub:"Cloud server dan object storage berperforma tinggi, dengan harga transparan dalam Rupiah. Tanpa biaya tersembunyi, tanpa kontrak panjang — aktif dalam hitungan detik.",
+    hero_cta1:"Lihat Paket & Harga", hero_cta2:"Cara Kerja",
+    stat_uptime:"Uptime SLA", stat_deploy:"Waktu Aktif", stat_support:"Dukungan", stat_disk:"Penyimpanan SSD",
+    feat_eyebrow:"Keunggulan", feat_title:"Dibangun untuk kecepatan dan ketenangan",
+    feat_lead:"Semua yang Anda butuhkan untuk menjalankan aplikasi produksi — tanpa kerumitan, tanpa kejutan di tagihan.",
+    f1t:"Aktif Seketika", f1d:"Server Anda langsung berjalan begitu pembayaran terkonfirmasi. Tidak perlu menunggu aktivasi manual.",
+    f2t:"Keamanan Berlapis", f2d:"Isolasi container per pelanggan, HTTPS otomatis, dan sertifikat TLS yang diperbarui tanpa intervensi.",
+    f3t:"Skalabel Tanpa Henti", f3d:"Naikkan CPU, RAM, dan penyimpanan kapan saja. Beban kerja Anda tumbuh, layanan tetap berjalan.",
+    f4t:"Harga Rupiah Transparan", f4d:"Semua harga dalam Rupiah, ditagih bulanan. Tanpa biaya setup, tanpa biaya tersembunyi.",
+    f5t:"Storage S3-Compatible", f5d:"Object storage yang kompatibel dengan S3 — siap dipakai untuk backup, media, dan arsip jangka panjang.",
+    f6t:"Panel Sederhana", f6d:"Kelola layanan, tagihan, dan kredensial dari satu dasbor. Buka server Anda dengan satu klik.",
+    prod_eyebrow:"Produk", prod_title:"Pilih yang sesuai kebutuhan Anda",
+    prod_lead:"Harga per bulan, sudah termasuk bandwidth. Bisa berhenti kapan saja.",
+    tab_vps:"Cloud Server", tab_sto:"Object Storage", per_month:"/bulan", popular:"Paling Populer",
+    buy:"Pesan Sekarang",
+    v_li1:"1 alamat IPv4 publik", v_li2:"Akses root penuh (SSH)", v_li3:"HTTPS otomatis + sertifikat TLS",
+    v_li4:"Cocok untuk web, bot, aplikasi ringan", v_li5:"Ideal untuk website & REST API",
+    v_li6:"Siap untuk database & produksi", v_li7:"Untuk aplikasi menengah & analitik",
+    v_li8:"Beban tinggi & banyak container",
+    s_li1:"Endpoint S3 + kredensial akses sendiri", s_li2:"Cocok untuk aset web & foto",
+    s_li3:"Backup harian otomatis", s_li4:"HTTPS & akses privat",
+    s_li5:"Untuk media aplikasi & arsip dokumen", s_li6:"Untuk data besar & arsip jangka panjang",
+    how_eyebrow:"Cara Kerja", how_title:"Tiga langkah, server Anda siap",
+    h1t:"Pilih paket", h1d:"Tentukan spesifikasi yang sesuai kebutuhan Anda dan selesaikan pembayaran.",
+    h2t:"Provisioning otomatis", h2d:"Sistem kami menyiapkan server Anda seketika setelah pembayaran terkonfirmasi.",
+    h3t:"Langsung pakai", h3d:"Terima alamat server dan kredensial akses dari dasbor Anda, lalu mulai bekerja.",
+    faq_title:"Pertanyaan yang sering diajukan",
+    q1:"Apakah harga sudah termasuk PPN?", a1:"Harga yang tertera adalah harga layanan. Pajak ditambahkan sesuai ketentuan yang berlaku pada saat penagihan.",
+    q2:"Metode pembayaran apa yang tersedia?", a2:"Kami mendukung transfer bank, virtual account, QRIS, dan dompet digital. Metode akan muncul saat Anda melakukan pembayaran.",
+    q3:"Bisakah saya upgrade atau downgrade?", a3:"Bisa. Paket dapat dinaikkan atau diturunkan kapan saja; penagihan akan menyesuaikan pada siklus berikutnya.",
+    q4:"Apa yang terjadi kalau saya berhenti berlangganan?", a4:"Layanan Anda dinonaktifkan saat jatuh tempo, dan dihentikan sepenuhnya setelah masa tenggang. Data dapat Anda ambil sebelum layanan dihentikan.",
+    q5:"Apakah ada jaminan uptime?", a5:"Kami menargetkan uptime 99,9% dengan pemantauan 24/7 dan dukungan teknis yang siap membantu.",
+    cta_title:"Siap memulai?", cta_sub:"Buat akun dan jalankan server pertama Anda hari ini. Tanpa biaya setup, tanpa kontrak panjang.",
+    cta_btn1:"Mulai Sekarang", cta_btn2:"Hubungi Kami",
+    foot_about:"Cloud server dan object storage untuk bisnis Indonesia. Cepat, transparan, dan siap skala.",
+    foot_prod:"Produk", foot_comp:"Perusahaan", foot_support:"Dukungan",
+    foot_help:"Pusat Bantuan", foot_contact:"Hubungi Kami", foot_status:"Status Layanan",
+    foot_rights:"Seluruh hak dilindungi.", foot_legal:"Syarat Layanan · Kebijakan Privasi"
+  },
+  en: {
+    nav_products:"Products", nav_features:"Why Us", nav_how:"How It Works", nav_cta:"Get Started",
+    hero_pill:"Asia datacenter · Live in seconds",
+    hero_t1:"Enterprise-grade", hero_t2:"infrastructure", hero_t3:"for your business.",
+    hero_sub:"High-performance cloud servers and object storage with transparent pricing in Rupiah. No hidden fees, no long contracts — live in seconds.",
+    hero_cta1:"See Plans & Pricing", hero_cta2:"How It Works",
+    stat_uptime:"Uptime SLA", stat_deploy:"Deploy Time", stat_support:"Support", stat_disk:"SSD Storage",
+    feat_eyebrow:"Why Us", feat_title:"Built for speed and peace of mind",
+    feat_lead:"Everything you need to run production workloads — without the complexity, without billing surprises.",
+    f1t:"Live Instantly", f1d:"Your server starts the moment payment is confirmed. No manual activation, no waiting.",
+    f2t:"Layered Security", f2d:"Per-customer container isolation, automatic HTTPS, and TLS certificates renewed without intervention.",
+    f3t:"Scales Without Downtime", f3d:"Add CPU, RAM, and storage at any time. Your workload grows, your service keeps running.",
+    f4t:"Transparent Rupiah Pricing", f4d:"Every price in Rupiah, billed monthly. No setup fees, no hidden charges.",
+    f5t:"S3-Compatible Storage", f5d:"Object storage compatible with S3 — ready for backups, media, and long-term archives.",
+    f6t:"Simple Panel", f6d:"Manage services, invoices, and credentials from one dashboard. Open your server in a single click.",
+    prod_eyebrow:"Products", prod_title:"Pick what fits your needs",
+    prod_lead:"Monthly pricing, bandwidth included. Cancel anytime.",
+    tab_vps:"Cloud Server", tab_sto:"Object Storage", per_month:"/month", popular:"Most Popular",
+    buy:"Order Now",
+    v_li1:"1 public IPv4 address", v_li2:"Full root access (SSH)", v_li3:"Automatic HTTPS + TLS certificate",
+    v_li4:"Great for websites, bots, light apps", v_li5:"Ideal for websites & REST APIs",
+    v_li6:"Ready for databases & production", v_li7:"For mid-size apps & analytics",
+    v_li8:"Heavy load & many containers",
+    s_li1:"S3 endpoint + your own access keys", s_li2:"Great for web assets & photos",
+    s_li3:"Automatic daily backup", s_li4:"HTTPS & private access",
+    s_li5:"For app media & document archives", s_li6:"For large data & long-term archives",
+    how_eyebrow:"How It Works", how_title:"Three steps and your server is ready",
+    h1t:"Choose a plan", h1d:"Pick the specification that fits your needs and complete the payment.",
+    h2t:"Automatic provisioning", h2d:"Our system prepares your server the moment payment is confirmed.",
+    h3t:"Start building", h3d:"Get your server address and access credentials from your dashboard, then get to work.",
+    faq_title:"Frequently asked questions",
+    q1:"Is tax included in the price?", a1:"Listed prices are for the service itself. Tax is added as applicable at the time of billing.",
+    q2:"Which payment methods are available?", a2:"We support bank transfer, virtual accounts, QRIS, and e-wallets. Available methods appear at checkout.",
+    q3:"Can I upgrade or downgrade?", a3:"Yes. You can change plans at any time; billing adjusts on the next cycle.",
+    q4:"What happens if I stop subscribing?", a4:"Your service is suspended at due date and terminated after the grace period. You can retrieve your data before termination.",
+    q5:"Is there an uptime guarantee?", a5:"We target 99.9% uptime with 24/7 monitoring and technical support ready to help.",
+    cta_title:"Ready to get started?", cta_sub:"Create an account and run your first server today. No setup fees, no long contracts.",
+    cta_btn1:"Get Started", cta_btn2:"Contact Us",
+    foot_about:"Cloud servers and object storage for Indonesian businesses. Fast, transparent, and ready to scale.",
+    foot_prod:"Products", foot_comp:"Company", foot_support:"Support",
+    foot_help:"Help Center", foot_contact:"Contact Us", foot_status:"Service Status",
+    foot_rights:"All rights reserved.", foot_legal:"Terms of Service · Privacy Policy"
+  }
+};
+
+function setLang(lang){
+  const dict = I18N[lang]; if(!dict) return;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(dict[k] !== undefined) el.textContent = dict[k];
+  });
+  document.documentElement.setAttribute('data-lang', lang);
+  document.documentElement.setAttribute('lang', lang);
+  document.getElementById('lang-id').classList.toggle('on', lang==='id');
+  document.getElementById('lang-en').classList.toggle('on', lang==='en');
+  try{ localStorage.setItem('is_lang', lang); }catch(e){}
+}
+
+function showCat(cat, btn){
+  document.getElementById('grid-vps').style.display = cat==='vps' ? 'grid' : 'none';
+  document.getElementById('grid-sto').style.display = cat==='sto' ? 'grid' : 'none';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+}
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+(function(){
+  let saved = null;
+  try{ saved = localStorage.getItem('is_lang'); }catch(e){}
+  if(!saved){
+    const n = (navigator.language||'id').toLowerCase();
+    saved = n.startsWith('id') ? 'id' : (n.startsWith('en') ? 'en' : 'id');
+  }
+  setLang(saved);
+})();
+</script>
+</body>
+</html>
