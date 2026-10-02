@@ -1,0 +1,39 @@
+:root{
+  --bg:hsl(240,22%,4%); --panel:hsl(240,18%,8%); --line:hsl(240,12%,18%);
+  --fg:hsl(40,20%,94%); --muted:hsl(240,8%,62%); --gold:hsl(39,58%,63%);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+header.top{border-bottom:1px solid var(--line);background:rgba(6,6,10,.92);position:sticky;top:0;z-index:10}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);font-weight:700;letter-spacing:-.01em}
+.brand .mark{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold),hsl(30,45%,45%));color:#14100a;font-size:13px;font-weight:800}
+.top nav a{color:var(--muted);margin-left:18px;font-size:14px}
+.top nav a:hover{color:var(--fg)}
+main{padding:52px 0 72px}
+h1{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.15;margin:0 0 8px}
+.sub{color:var(--muted);font-size:14px;margin:0 0 40px}
+h2{font-size:20px;margin:40px 0 10px;letter-spacing:-.01em}
+h3{font-size:16px;margin:26px 0 6px}
+p,li{color:hsl(40,12%,86%)}
+ul,ol{padding-left:22px}
+li{margin:6px 0}
+.lang{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
+  border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin:46px 0 4px}
+.divider{height:1px;background:var(--line);margin:56px 0 0}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:10px;padding:16px 18px;margin:22px 0}
+.callout p{margin:0}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+footer.site{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+footer.site a{color:var(--muted)}
+footer.site a:hover{color:var(--gold)}

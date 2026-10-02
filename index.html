@@ -168,6 +168,9 @@
   .fcol a:hover{color:var(--text)}
   .fbot{margin-top:44px;padding-top:24px;border-top:1px solid var(--line);display:flex;
     justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12.8px}
+  .fbot a{color:var(--muted)}
+  .fbot a:hover{color:var(--gold)}
+  .flegal{display:inline-flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
 
   @media (max-width:880px){
     .nav-links{display:none}
@@ -468,7 +471,10 @@
         <details><summary data-i18n="q2">Metode pembayaran apa yang tersedia?</summary><p data-i18n="a2">Kami mendukung transfer bank, virtual account, QRIS, dan dompet digital. Metode akan muncul saat Anda melakukan pembayaran.</p></details>
         <details><summary data-i18n="q3">Bisakah saya upgrade atau downgrade?</summary><p data-i18n="a3">Bisa. Paket dapat dinaikkan atau diturunkan kapan saja; penagihan akan menyesuaikan pada siklus berikutnya.</p></details>
         <details><summary data-i18n="q4">Apa yang terjadi kalau saya berhenti berlangganan?</summary><p data-i18n="a4">Layanan Anda dinonaktifkan saat jatuh tempo, dan dihentikan sepenuhnya setelah masa tenggang. Data dapat Anda ambil sebelum layanan dihentikan.</p></details>
-        <details><summary data-i18n="q5">Apakah ada jaminan uptime?</summary><p data-i18n="a5">Kami menargetkan uptime 99,9% dengan pemantauan 24/7 dan dukungan teknis yang siap membantu.</p></details>
+        <details><summary data-i18n="q5">Apakah ada jaminan uptime?</summary><p data-i18n="a5">Kami menargetkan uptime 99,9% per bulan dengan pemantauan berkelanjutan dan dukungan teknis yang siap membantu.</p></details>
+        <details><summary data-i18n="q6">Bagaimana kebijakan refund-nya?</summary><p data-i18n="a6">Pembelian pertama Cloud Server atau Object Storage bergaransi uang kembali 7 hari kalender. Selengkapnya di <a href="/refund">Kebijakan Refund</a>.</p></details>
+        <details><summary data-i18n="q7">Bagaimana cara menghubungi dukungan?</summary><p data-i18n="a7">Email <a href="mailto:support@instantserver.dev">support@instantserver.dev</a> (Senin–Jumat 09.00–18.00 WIB). Status layanan tersedia di <a href="https://status.instantserver.dev">status.instantserver.dev</a>.</p></details>
+        <details><summary data-i18n="q8">Di mana syarat dan kebijakan privasi?</summary><p data-i18n="a8">Baca <a href="/terms">Syarat Layanan</a> dan <a href="/privacy">Kebijakan Privasi</a> kami. Keduanya berlaku untuk semua layanan Instant Server.</p></details>
       </div>
     </div>
   </section>
@@ -510,14 +516,16 @@
       </div>
       <div class="fcol">
         <h5 data-i18n="foot_support">Dukungan</h5>
-        <a href="#faq" data-i18n="foot_help">Pusat Bantuan</a>
-        <a href="#faq" data-i18n="foot_contact">Hubungi Kami</a>
-        <a href="#faq" data-i18n="foot_status">Status Layanan</a>
+        <a href="mailto:support@instantserver.dev" data-i18n="foot_contact">Hubungi Kami</a>
+        <a href="https://status.instantserver.dev" data-i18n="foot_status">Status Layanan</a>
+        <a href="/terms" data-i18n="foot_terms">Syarat Layanan</a>
+        <a href="/privacy" data-i18n="foot_privacy">Kebijakan Privasi</a>
+        <a href="/refund" data-i18n="foot_refund">Kebijakan Refund</a>
       </div>
     </div>
     <div class="fbot">
       <span>© <span id="yr"></span> Instant Server. <span data-i18n="foot_rights">Seluruh hak dilindungi.</span></span>
-      <span data-i18n="foot_legal">Syarat Layanan · Kebijakan Privasi</span>
+      <span class="flegal"><a href="/terms" data-i18n="foot_terms">Syarat Layanan</a> · <a href="/privacy" data-i18n="foot_privacy">Kebijakan Privasi</a> · <a href="/refund" data-i18n="foot_refund">Kebijakan Refund</a> · <a href="mailto:support@instantserver.dev">support@instantserver.dev</a></span>
     </div>
   </div>
 </footer>
@@ -576,12 +584,16 @@ const I18N = {
     q2:"Metode pembayaran apa yang tersedia?", a2:"Kami mendukung transfer bank, virtual account, QRIS, dan dompet digital. Metode akan muncul saat Anda melakukan pembayaran.",
     q3:"Bisakah saya upgrade atau downgrade?", a3:"Bisa. Paket dapat dinaikkan atau diturunkan kapan saja; penagihan akan menyesuaikan pada siklus berikutnya.",
     q4:"Apa yang terjadi kalau saya berhenti berlangganan?", a4:"Layanan Anda dinonaktifkan saat jatuh tempo, dan dihentikan sepenuhnya setelah masa tenggang. Data dapat Anda ambil sebelum layanan dihentikan.",
-    q5:"Apakah ada jaminan uptime?", a5:"Kami menargetkan uptime 99,9% dengan pemantauan 24/7 dan dukungan teknis yang siap membantu.",
+    q5:"Apakah ada jaminan uptime?", a5:"Kami menargetkan uptime 99,9% per bulan dengan pemantauan berkelanjutan dan dukungan teknis yang siap membantu.",
+    q6:"Bagaimana kebijakan refund-nya?", a6:"Pembelian pertama Cloud Server atau Object Storage bergaransi uang kembali 7 hari kalender. Selengkapnya di Kebijakan Refund.",
+    q7:"Bagaimana cara menghubungi dukungan?", a7:"Email support@instantserver.dev (Senin–Jumat 09.00–18.00 WIB). Status layanan tersedia di status.instantserver.dev.",
+    q8:"Di mana syarat dan kebijakan privasi?", a8:"Baca Syarat Layanan dan Kebijakan Privasi kami — tautannya ada di bagian bawah halaman ini.",
     cta_title:"Siap memulai?", cta_sub:"Buat akun dan jalankan server pertama Anda hari ini. Tanpa biaya setup, tanpa kontrak panjang.",
     cta_btn1:"Mulai Sekarang", cta_btn2:"Hubungi Kami",
     foot_about:"Cloud server dan object storage untuk bisnis Indonesia. Cepat, transparan, dan siap skala.",
     foot_prod:"Produk", foot_comp:"Perusahaan", foot_support:"Dukungan",
     foot_help:"Pusat Bantuan", foot_contact:"Hubungi Kami", foot_status:"Status Layanan",
+    foot_terms:"Syarat Layanan", foot_privacy:"Kebijakan Privasi", foot_refund:"Kebijakan Refund",
     foot_rights:"Seluruh hak dilindungi.", foot_legal:"Syarat Layanan · Kebijakan Privasi"
   },
   en: {
@@ -636,12 +648,16 @@ const I18N = {
     q2:"Which payment methods are available?", a2:"We support bank transfer, virtual accounts, QRIS, and e-wallets. Available methods appear at checkout.",
     q3:"Can I upgrade or downgrade?", a3:"Yes. You can change plans at any time; billing adjusts on the next cycle.",
     q4:"What happens if I stop subscribing?", a4:"Your service is suspended at due date and terminated after the grace period. You can retrieve your data before termination.",
-    q5:"Is there an uptime guarantee?", a5:"We target 99.9% uptime with 24/7 monitoring and technical support ready to help.",
+    q5:"Is there an uptime guarantee?", a5:"We target 99.9% uptime per month with continuous monitoring and technical support ready to help.",
+    q6:"What is your refund policy?", a6:"The first purchase of a Cloud Server or Object Storage plan comes with a 7-calendar-day money-back guarantee. Details in our Refund Policy.",
+    q7:"How do I reach support?", a7:"Email support@instantserver.dev (Monday–Friday 09:00–18:00 WIB). Service status is at status.instantserver.dev.",
+    q8:"Where are your terms and privacy policy?", a8:"Read our Terms of Service and Privacy Policy — both are linked in the footer of this page.",
     cta_title:"Ready to get started?", cta_sub:"Create an account and run your first server today. No setup fees, no long contracts.",
     cta_btn1:"Get Started", cta_btn2:"Contact Us",
     foot_about:"Cloud servers and object storage for Indonesian businesses. Fast, transparent, and ready to scale.",
     foot_prod:"Products", foot_comp:"Company", foot_support:"Support",
     foot_help:"Help Center", foot_contact:"Contact Us", foot_status:"Service Status",
+    foot_terms:"Terms of Service", foot_privacy:"Privacy Policy", foot_refund:"Refund Policy",
     foot_rights:"All rights reserved.", foot_legal:"Terms of Service · Privacy Policy"
   }
 };
