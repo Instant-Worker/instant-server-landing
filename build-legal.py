@@ -14,7 +14,11 @@ STATUS = "https://status.instantserver.dev"
 SUPPORT = "support@instantserver.dev"
 UPDATED = "2 Oktober 2026"
 UPDATED_EN = "2 October 2026"
-OPERATOR = "[NAMA BADAN USAHA ATAU NAMA PERORANGAN]"
+OPERATOR = "PT Inovasi Pemuda Bangsa"
+OPERATOR_ADDRESS = ("Gd. Rabithah Alawiyah, Jl. TB Simatupang No. 7A, Tanjung Barat, Jagakarsa, "
+                    "Jakarta Selatan, DKI Jakarta, Indonesia")
+OPERATOR_ADDRESS_EN = ("Gd. Rabithah Alawiyah, Jl. TB Simatupang No. 7A, Tanjung Barat, Jagakarsa, "
+                       "South Jakarta, DKI Jakarta, Indonesia")
 
 LAYOUT = """<!DOCTYPE html>
 <html lang="{lang}">
@@ -75,7 +79,7 @@ TERMS_ID = """
 <p class="sub">Terakhir diperbarui: {updated} · Berlaku untuk <strong>instantserver.dev</strong> dan
 <strong>panel.instantserver.dev</strong> · Versi Bahasa Indonesia mengikat.</p>
 
-<div class="callout"><p><strong>Penyelenggara:</strong> {operator}, berkedudukan di Indonesia
+<div class="callout"><p><strong>Penyelenggara:</strong> {operator}, berkedudukan di {address}
 (&ldquo;kami&rdquo;). Dengan membuat akun atau memesan layanan, Anda menyetujui Syarat Layanan ini
 beserta <a href="/privacy">Kebijakan Privasi</a> dan <a href="/refund">Kebijakan Refund</a> kami.</p></div>
 
@@ -235,7 +239,7 @@ PRIVACY_ID = """
 <p class="sub">Terakhir diperbarui: {updated} · Berlaku untuk <strong>instantserver.dev</strong> dan
 <strong>panel.instantserver.dev</strong> · Versi Bahasa Indonesia mengikat.</p>
 
-<div class="callout"><p><strong>Pengendali data:</strong> {operator}, Indonesia. Pertanyaan atau
+<div class="callout"><p><strong>Pengendali data:</strong> {operator}, {address}. Pertanyaan atau
 permintaan terkait data pribadi: <a href="mailto:{support}">{support}</a>. Kami menanggapi dalam
 maksimal 3 hari kerja.</p></div>
 
@@ -347,7 +351,7 @@ pengumuman di panel. Tanggal &ldquo;terakhir diperbarui&rdquo; di atas menunjukk
 berlaku.</p>
 
 <h2>13. Kontak</h2>
-<p>{operator}, Indonesia.<br>Email: <a href="mailto:{support}">{support}</a><br>
+<p>{operator}<br>{address}<br>Email: <a href="mailto:{support}">{support}</a><br>
 Status layanan: <a href="{status}">{status}</a></p>
 """
 
@@ -414,7 +418,7 @@ TERMS_EN = """
 <p class="sub">Last updated: {updated} · Applies to <strong>instantserver.dev</strong> and
 <strong>panel.instantserver.dev</strong> · The Indonesian version is the binding one.</p>
 
-<div class="callout"><p><strong>Operator:</strong> {operator}, based in Indonesia
+<div class="callout"><p><strong>Operator:</strong> {operator}, {address_en}
 (&ldquo;we&rdquo;). By creating an account or ordering a service you agree to these Terms of Service,
 our <a href="/en/privacy">Privacy Policy</a> and our <a href="/en/refund">Refund Policy</a>.</p></div>
 
@@ -570,7 +574,7 @@ PRIVACY_EN = """
 <p class="sub">Last updated: {updated} · Applies to <strong>instantserver.dev</strong> and
 <strong>panel.instantserver.dev</strong> · The Indonesian version is the binding one.</p>
 
-<div class="callout"><p><strong>Data controller:</strong> {operator}, Indonesia. Questions or personal
+<div class="callout"><p><strong>Data controller:</strong> {operator}, {address_en}. Questions or personal
 data requests: <a href="mailto:{support}">{support}</a>. We respond within 3 business days.</p></div>
 
 <h2>1. Summary</h2>
@@ -678,7 +682,7 @@ from children. If you become aware of this, contact us so we can delete it.</p>
 &ldquo;last updated&rdquo; date above shows the version in force.</p>
 
 <h2>13. Contact</h2>
-<p>{operator}, Indonesia.<br>Email: <a href="mailto:{support}">{support}</a><br>
+<p>{operator}<br>{address_en}<br>Email: <a href="mailto:{support}">{support}</a><br>
 Service status: <a href="{status}">{status}</a></p>
 """
 
@@ -738,7 +742,14 @@ fees as set by the payment provider.</p>
 
 def render(body, lang):
     upd = UPDATED if lang == "id" else UPDATED_EN
-    return body.format(updated=upd, support=SUPPORT, status=STATUS, operator=OPERATOR)
+    return body.format(
+        updated=upd,
+        support=SUPPORT,
+        status=STATUS,
+        operator=OPERATOR,
+        address=OPERATOR_ADDRESS,
+        address_en=OPERATOR_ADDRESS_EN,
+    )
 
 
 def titles(body):
