@@ -117,11 +117,11 @@ transfer) tercantum pada halaman harga dan menjadi bagian dari perjanjian ini.</
 
 <h2>4. Harga dan Pembayaran</h2>
 <ul>
-  <li>Semua harga ditampilkan dalam Rupiah (IDR) dan <strong>belum termasuk pajak</strong> yang berlaku.
+  <li>Semua harga ditampilkan dalam Dolar AS (USD) dan <strong>belum termasuk pajak</strong> yang berlaku.
   Pajak ditambahkan pada faktur bila diwajibkan oleh hukum.</li>
   <li>Langganan bersifat <strong>prabayar bulanan</strong>. Layanan berjalan selama periode yang telah
   dibayar.</li>
-  <li>Pembayaran kartu dalam mata uang asing diproses oleh <strong>Creem</strong>, yang bertindak sebagai
+  <li>Pembayaran dengan kartu diproses oleh <strong>Creem</strong>, yang bertindak sebagai
   <em>Merchant of Record</em>. Untuk transaksi tersebut, Creem adalah pihak yang menjual kepada
   pelanggan akhir dan menangani kepatuhan pajak terkait; ketentuan Creem juga berlaku.</li>
   <li>Kami tidak menyimpan nomor kartu penuh. Data pembayaran diproses langsung oleh penyedia
@@ -285,7 +285,7 @@ diwajibkan oleh hukum.</p>
 </table>
 
 <h2>4. Pembayaran dan Merchant of Record</h2>
-<p>Pembayaran kartu dalam mata uang asing diproses oleh <strong>Creem</strong> sebagai
+<p>Pembayaran dengan kartu diproses oleh <strong>Creem</strong> sebagai
 <em>Merchant of Record</em>. Dalam peran tersebut, Creem menjadi pihak penjual kepada pelanggan akhir
 dan memproses data pembayaran serta kepatuhan pajak terkait menurut kebijakan privasinya sendiri.
 Untuk pembayaran lokal, kami menggunakan penyedia pembayaran yang berizin di Indonesia. Kami hanya
@@ -378,7 +378,7 @@ pendaftaran domain atau lisensi perangkat lunak).</p>
   <li>Dana dikembalikan ke metode pembayaran asal dalam maksimal 14 hari kerja setelah disetujui.
   Waktu tiba di rekening atau kartu Anda bergantung pada penyedia pembayaran.</li>
 </ol>
-<p>Bila pembayaran dilakukan melalui Creem (kartu mata uang asing), refund diproses melalui Creem
+<p>Bila pembayaran dilakukan melalui Creem (kartu), refund diproses melalui Creem
 sesuai ketentuan mereka.</p>
 
 <h2>3. Yang Tidak Dapat Dikembalikan</h2>
@@ -456,10 +456,10 @@ storage, transfer) are listed on the pricing page and form part of this agreemen
 
 <h2>4. Pricing and Payment</h2>
 <ul>
-  <li>All prices are shown in Indonesian Rupiah (IDR) and <strong>exclude applicable taxes</strong>.
+  <li>All prices are shown in US Dollars (USD) and <strong>exclude applicable taxes</strong>.
   Taxes are added to the invoice where required by law.</li>
   <li>Subscriptions are <strong>prepaid monthly</strong>. The service runs for the period paid.</li>
-  <li>Card payments in foreign currency are processed by <strong>Creem</strong>, acting as Merchant
+  <li>Card payments are processed by <strong>Creem</strong>, acting as Merchant
   of Record. For those transactions Creem is the seller to the end customer and handles the related
   tax compliance; Creem&rsquo;s own terms also apply.</li>
   <li>We do not store full card numbers. Payment data is processed directly by the payment
@@ -619,7 +619,7 @@ law requires it.</p>
 </table>
 
 <h2>4. Payments and Merchant of Record</h2>
-<p>Card payments in foreign currency are processed by <strong>Creem</strong> as Merchant of Record. In
+<p>Card payments are processed by <strong>Creem</strong> as Merchant of Record. In
 that role Creem is the seller to the end customer and processes payment data and related tax
 compliance under its own privacy policy. For local payments we use a licensed Indonesian payment
 provider. We only receive transaction status (succeeded, failed, refunded), never card data.</p>
@@ -707,7 +707,7 @@ licences).</p>
   <li>Funds are returned to the original payment method within 14 business days of approval. The time
   to reach your account or card depends on the payment provider.</li>
 </ol>
-<p>Where payment was made through Creem (foreign-currency cards), refunds are processed through Creem
+<p>Where payment was made through Creem (cards), refunds are processed through Creem
 under their terms.</p>
 
 <h2>3. What Cannot Be Refunded</h2>
