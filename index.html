@@ -477,6 +477,49 @@
   </section>
 
 
+  <!-- VERTICAL REELS -->
+  <section id="reels">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow" data-i18n="rv_eyebrow">Video</div>
+        <h2 data-i18n="rv_title">Lihat produknya bergerak</h2>
+        <p class="lead" data-i18n="rv_lead">Dua cuplikan pendek: server yang aktif dalam hitungan detik, dan OTP yang mendarat di WhatsApp. Tanpa suara — bisa ditonton di mana saja.</p>
+      </div>
+
+      <div class="reels-vertical">
+        <div class="reel-v" data-reveal data-reveal-y="36">
+          <span class="vtag" data-i18n="rv_tag1">Cloud Server</span>
+          <video id="reel-vps-v" class="reel-video"
+                 poster="/assets/video/vps-v-poster.jpg"
+                 preload="none" muted playsinline loop
+                 aria-label="Cloud Server — 14 detik">
+            <source src="/assets/video/vps-v.webm" type="video/webm">
+            <source src="/assets/video/vps-v.mp4" type="video/mp4">
+          </video>
+          <button class="reel-play" data-play="reel-vps-v" type="button" aria-label="Putar video">
+            <span>▶</span>
+          </button>
+          <div class="vcap" data-i18n="rv_cap1">Aktif dalam hitungan detik</div>
+        </div>
+
+        <div class="reel-v" data-reveal data-reveal-y="36">
+          <span class="vtag" data-i18n="rv_tag2">WhatsApp Gateway</span>
+          <video id="reel-wa-v" class="reel-video"
+                 poster="/assets/video/wa-v-poster.jpg"
+                 preload="none" muted playsinline loop
+                 aria-label="WhatsApp Gateway — 12 detik">
+            <source src="/assets/video/wa-v.webm" type="video/webm">
+            <source src="/assets/video/wa-v.mp4" type="video/mp4">
+          </video>
+          <button class="reel-play" data-play="reel-wa-v" type="button" aria-label="Putar video">
+            <span>▶</span>
+          </button>
+          <div class="vcap" data-i18n="rv_cap2">OTP langsung ke WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- WHATSAPP SHOWCASE -->
   <section id="whatsapp">
     <div class="wrap">
@@ -656,6 +699,10 @@ const I18N = {
     f6t:"Panel Sederhana", f6d:"Kelola layanan, tagihan, dan kredensial dari satu dasbor. Buka server Anda dengan satu klik.",
     prod_eyebrow:"Produk", prod_title:"Pilih yang sesuai kebutuhan Anda",
     prod_lead:"Harga per bulan, sudah termasuk bandwidth. Semua server berlokasi di Indonesia. Bisa berhenti kapan saja.",
+    rv_eyebrow:"Video", rv_title:"Lihat produknya bergerak",
+    rv_lead:"Dua cuplikan pendek: server yang aktif dalam hitungan detik, dan OTP yang mendarat di WhatsApp. Tanpa suara — bisa ditonton di mana saja.",
+    rv_tag1:"Cloud Server", rv_tag2:"WhatsApp Gateway",
+    rv_cap1:"Aktif dalam hitungan detik", rv_cap2:"OTP langsung ke WhatsApp",
     stat_uptime_v:"99,9%",
     reel_cap1:"Deploy sungguhan — 1,4 detik sampai HTTPS aktif", reel_cap2:"Tanpa suara · 18 detik",
     wa_eyebrow:"WhatsApp Gateway", wa_title:"Nomor WhatsApp Anda, sekarang punya API",
@@ -748,6 +795,10 @@ const I18N = {
     f6t:"Simple Panel", f6d:"Manage services, invoices, and credentials from one dashboard. Open your server in a single click.",
     prod_eyebrow:"Products", prod_title:"Pick what fits your needs",
     prod_lead:"Monthly pricing, bandwidth included. All servers located in Indonesia. Cancel anytime.",
+    rv_eyebrow:"Video", rv_title:"See the product in motion",
+    rv_lead:"Two short clips: a server that goes live in seconds, and an OTP landing in WhatsApp. Silent — watchable anywhere.",
+    rv_tag1:"Cloud Server", rv_tag2:"WhatsApp Gateway",
+    rv_cap1:"Live in seconds", rv_cap2:"OTP straight to WhatsApp",
     stat_uptime_v:"99.9%",
     reel_cap1:"Real deploy — 1.4s to live HTTPS", reel_cap2:"Silent · 18 seconds",
     wa_eyebrow:"WhatsApp Gateway", wa_title:"Your WhatsApp number, now with an API",
