@@ -5,7 +5,12 @@
      2. lazy-start the promo reels on click (preload="none" keeps the page light)
 
    Everything degrades: if Motion fails to load, or the visitor prefers reduced
-   motion, the content is simply visible with no animation. */
+   motion, the content is simply visible with no animation.
+
+   API note: Motion's inView signature is inView(target, onStart, options) where
+   onStart receives {target}. Passing the callback as the second argument (the
+   "element, callback" habit) silently returns an observer that never calls
+   anything — which looks exactly like "the reveal never fired". */
 
 (function () {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -25,13 +30,11 @@
 
     if (button) button.addEventListener('click', start);
 
-    // clicking the video toggles pause/resume once it is running
     video.addEventListener('click', () => {
       if (video.paused) start();
       else video.pause();
     });
 
-    // put the play button back when the reel is paused by the visitor
     video.addEventListener('pause', () => {
       if (button && video.currentTime > 0) button.hidden = false;
     });
@@ -39,7 +42,6 @@
       if (button) button.hidden = true;
     });
 
-    // pause when scrolled away — no background decode cost
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
@@ -50,57 +52,72 @@
     }
   }
 
-  const heroVideo = document.getElementById('reel-vps');
-  const heroBtn = document.getElementById('reel-play');
-  wirePlayer(heroVideo, heroBtn);
-
+  wirePlayer(document.getElementById('reel-vps'), document.getElementById('reel-play'));
   document.querySelectorAll('[data-play]').forEach((btn) => {
-    const v = document.getElementById(btn.getAttribute('data-play'));
-    wirePlayer(v, btn);
+    wirePlayer(document.getElementById(btn.getAttribute('data-play')), btn);
   });
 
   /* ---------- reveals ---------- */
   const items = Array.from(document.querySelectorAll('[data-reveal]'));
   if (!items.length) return;
 
-  if (reduced || !window.Motion || !window.Motion.animate) {
+  const showAll = () => {
     root.classList.add('no-motion');
-    items.forEach((el) => el.classList.add('is-in'));
+    items.forEach((el) => {
+      el.classList.add('is-in');
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  };
+
+  if (reduced || !window.Motion || typeof window.Motion.inView !== 'function') {
+    showAll();
     return;
   }
 
   const { animate, inView, stagger } = window.Motion;
 
-  // Start each element displaced and transparent, then let inView animate it in.
+  // start displaced
   items.forEach((el) => {
-    const dy = Number(el.getAttribute('data-reveal-y') || 28);
-    el.style.transform = `translateY(${dy}px)`;
+    el.style.opacity = '0';
+    el.style.transform = `translateY(${Number(el.getAttribute('data-reveal-y') || 28)}px)`;
   });
 
-  const stop = inView(items, (el) => {
+  const reveal = (el) => {
+    if (el.classList.contains('is-in')) return;
+    el.classList.add('is-in');
     const dy = Number(el.getAttribute('data-reveal-y') || 28);
     animate(
       el,
       { opacity: [0, 1], transform: [`translateY(${dy}px)`, 'translateY(0px)'] },
       { duration: 0.75, ease: [0.22, 1, 0.36, 1] }
     );
-    el.classList.add('is-in');
+    el.style.opacity = '1';
     el.style.transform = 'translateY(0px)';
-  }, { amount: 0.15 });
+  };
 
-  // Hero reel gets a slightly longer, softer entrance.
-  if (heroVideo) {
-    const card = heroVideo.closest('.reel-hero');
-    if (card) {
-      animate(card, { opacity: [0, 1], transform: ['translateY(34px) scale(.985)', 'translateY(0px) scale(1)'] },
-        { duration: 1.0, delay: 0.15, ease: [0.22, 1, 0.36, 1] });
-      card.style.opacity = '1';
-      card.style.transform = 'none';
-      card.classList.add('is-in');
-    }
-  }
+  // inView(target, onStart, options) — the callback is the SECOND argument and
+  // receives {target}; it fires when the element enters the viewport.
+  inView(items, (entry) => reveal(entry.target), { amount: 0.15 });
 
-  // Stagger the product cards inside the visible grid the first time it appears.
+  // Anything already on screen at load (the hero) must not wait for a scroll.
+  requestAnimationFrame(() => {
+    items.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92 && r.bottom > 0) reveal(el);
+    });
+  });
+
+  // Safety net: if a reveal never fired (odd viewport, observer quirk), make
+  // sure nothing stays invisible after a few seconds.
+  setTimeout(() => {
+    items.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0 && !el.classList.contains('is-in')) reveal(el);
+    });
+  }, 2600);
+
+  // Stagger the product cards the first time the grid appears.
   const grid = document.getElementById('grid-vps');
   if (grid) {
     let done = false;
@@ -110,6 +127,7 @@
       animate(grid.querySelectorAll('.card'),
         { opacity: [0, 1], transform: ['translateY(26px)', 'translateY(0px)'] },
         { duration: 0.6, delay: stagger(0.06), ease: [0.22, 1, 0.36, 1] });
+      grid.querySelectorAll('.card').forEach((c) => { c.style.opacity = '1'; });
     }, { amount: 0.1 });
   }
 })();
