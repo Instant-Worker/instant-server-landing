@@ -118,14 +118,23 @@
     });
   });
 
-  // Safety net: nothing may stay invisible. If an element is in the viewport
-  // after a few seconds, show it regardless of the observer.
-  setTimeout(() => {
+  // Safety net: nothing may stay invisible. An element the visitor has already
+  // scrolled PAST (top above the viewport bottom) must be shown too — a fast
+  // scroll can outrun the observer, and a permanently invisible caption reads as
+  // a broken page.
+  const catchUp = () => {
     items.forEach((el) => {
+      if (el.classList.contains('is-in')) return;
       const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) reveal(el);
+      if (r.top < window.innerHeight) reveal(el);
     });
-  }, 2200);
+  };
+  setTimeout(catchUp, 1800);
+  window.addEventListener('scroll', () => {
+    if (window.__catchUpQueued) return;
+    window.__catchUpQueued = true;
+    requestAnimationFrame(() => { window.__catchUpQueued = false; catchUp(); });
+  }, { passive: true });
 
   /* ---------- product card stagger ---------- */
   const grid = document.getElementById('grid-vps');
