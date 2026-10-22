@@ -283,6 +283,7 @@
         <div class="tabs">
           <button class="tab on" data-cat="vps" onclick="showCat('vps',this)" data-i18n="tab_vps">Cloud Server</button>
           <button class="tab" data-cat="sto" onclick="showCat('sto',this)" data-i18n="tab_sto">Object Storage</button>
+          <button class="tab" data-cat="wa" onclick="showCat('wa',this)" data-i18n="tab_wa">WhatsApp Gateway</button>
         </div>
       </div>
 
@@ -411,6 +412,46 @@
             <li data-i18n="s_li4">…</li>
           </ul>
           <a class="btn btn-ghost" href="https://panel.instantserver.dev/products/object-storage/object-storage-st4/checkout">Pesan Sekarang</a>
+        </div>
+      </div>
+
+      <div class="grid" id="grid-wa" style="display:none">
+        <div class="card">
+          <h3>WA Starter</h3>
+          <div class="spec"><span data-i18n="loc_id">🇮🇩 Indonesia</span><span>1 <span data-i18n="wa_unit">nomor</span></span><span data-i18n="wa_spec_api">REST API</span><span data-i18n="wa_spec_hook">Webhook</span></div>
+          <div class="price"><b>$6</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="wa_li1">1 nomor WhatsApp, tanpa batas pesan</li>
+            <li data-i18n="wa_li2">API key khusus per workspace</li>
+            <li data-i18n="wa_li3">Scan QR langsung dari portal</li>
+            <li data-i18n="wa_li4">Cocok untuk OTP &amp; notifikasi pesanan</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://panel.instantserver.dev/products/whatsapp/wa-starter/checkout">Pesan Sekarang</a>
+        </div>
+        <div class="card hot">
+          <span class="tag" data-i18n="popular">Paling Populer</span>
+          <h3>WA Business</h3>
+          <div class="spec"><span data-i18n="loc_id">🇮🇩 Indonesia</span><span>3 <span data-i18n="wa_unit">nomor</span></span><span data-i18n="wa_spec_api">REST API</span><span data-i18n="wa_spec_hook">Webhook</span></div>
+          <div class="price"><b>$15</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="wa_li5">3 nomor: CS, notifikasi, dan OTP terpisah</li>
+            <li data-i18n="wa_li2">API key khusus per workspace</li>
+            <li data-i18n="wa_li3">Scan QR langsung dari portal</li>
+            <li data-i18n="wa_li6">Statistik pemakaian per nomor</li>
+          </ul>
+          <a class="btn btn-gold" href="https://panel.instantserver.dev/products/whatsapp/wa-business/checkout">Pesan Sekarang</a>
+        </div>
+        <div class="card">
+          <h3>WA Scale</h3>
+          <div class="spec"><span data-i18n="loc_id">🇮🇩 Indonesia</span><span>10 <span data-i18n="wa_unit">nomor</span></span><span data-i18n="wa_spec_api">REST API</span><span data-i18n="wa_spec_hook">Webhook</span></div>
+          <div class="price"><b>$45</b><i data-i18n="per_month">/bulan</i></div>
+          <ul>
+            <li data-i18n="wa_li7">10 nomor untuk agensi &amp; multi-cabang</li>
+            <li data-i18n="wa_li2">API key khusus per workspace</li>
+            <li data-i18n="wa_li3">Scan QR langsung dari portal</li>
+            <li data-i18n="wa_li8">Harga per nomor paling murah</li>
+          </ul>
+          <a class="btn btn-ghost" href="https://panel.instantserver.dev/products/whatsapp/wa-scale/checkout">Pesan Sekarang</a>
         </div>
       </div>
     </div>
@@ -549,7 +590,16 @@ const I18N = {
     f6t:"Panel Sederhana", f6d:"Kelola layanan, tagihan, dan kredensial dari satu dasbor. Buka server Anda dengan satu klik.",
     prod_eyebrow:"Produk", prod_title:"Pilih yang sesuai kebutuhan Anda",
     prod_lead:"Harga per bulan, sudah termasuk bandwidth. Semua server berlokasi di Indonesia. Bisa berhenti kapan saja.",
-    tab_vps:"Cloud Server", tab_sto:"Object Storage", per_month:"/bulan", popular:"Paling Populer",
+    tab_vps:"Cloud Server", tab_sto:"Object Storage", tab_wa:"WhatsApp Gateway", per_month:"/bulan", popular:"Paling Populer",
+    wa_unit:"nomor", wa_spec_api:"REST API", wa_spec_hook:"Webhook",
+    wa_li1:"1 nomor WhatsApp, tanpa batas pesan",
+    wa_li2:"API key khusus per workspace",
+    wa_li3:"Scan QR langsung dari portal",
+    wa_li4:"Cocok untuk OTP & notifikasi pesanan",
+    wa_li5:"3 nomor: CS, notifikasi, dan OTP terpisah",
+    wa_li6:"Statistik pemakaian per nomor",
+    wa_li7:"10 nomor untuk agensi & multi-cabang",
+    wa_li8:"Harga per nomor paling murah",
     buy:"Pesan Sekarang",
     v_li1:"Subdomain khusus + HTTPS otomatis", v_li2:"Jalankan image Docker apa pun", v_li3:"Sertifikat TLS dikelola otomatis",
     v_li4:"Cocok untuk web, bot, aplikasi ringan", v_li5:"Ideal untuk website & REST API",
@@ -614,7 +664,16 @@ const I18N = {
     f6t:"Simple Panel", f6d:"Manage services, invoices, and credentials from one dashboard. Open your server in a single click.",
     prod_eyebrow:"Products", prod_title:"Pick what fits your needs",
     prod_lead:"Monthly pricing, bandwidth included. All servers located in Indonesia. Cancel anytime.",
-    tab_vps:"Cloud Server", tab_sto:"Object Storage", per_month:"/month", popular:"Most Popular",
+    tab_vps:"Cloud Server", tab_sto:"Object Storage", tab_wa:"WhatsApp Gateway", per_month:"/month", popular:"Most Popular",
+    wa_unit:"number", wa_spec_api:"REST API", wa_spec_hook:"Webhook",
+    wa_li1:"1 WhatsApp number, unlimited messages",
+    wa_li2:"Dedicated API key per workspace",
+    wa_li3:"Scan the QR right from the portal",
+    wa_li4:"Great for OTP and order notifications",
+    wa_li5:"3 numbers: support, notifications, OTP kept apart",
+    wa_li6:"Per-number usage statistics",
+    wa_li7:"10 numbers for agencies and multi-branch",
+    wa_li8:"Lowest price per number",
     buy:"Order Now",
     v_li1:"Dedicated subdomain + automatic HTTPS", v_li2:"Run any Docker image", v_li3:"Managed TLS certificate",
     v_li4:"Great for websites, bots, light apps", v_li5:"Ideal for websites & REST APIs",
@@ -678,8 +737,10 @@ function setLang(lang){
 }
 
 function showCat(cat, btn){
-  document.getElementById('grid-vps').style.display = cat==='vps' ? 'grid' : 'none';
-  document.getElementById('grid-sto').style.display = cat==='sto' ? 'grid' : 'none';
+  ['vps','sto','wa'].forEach(function(c){
+    var g = document.getElementById('grid-'+c);
+    if(g) g.style.display = (c===cat) ? 'grid' : 'none';
+  });
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
   if(btn) btn.classList.add('on');
 }
