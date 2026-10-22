@@ -57,6 +57,8 @@ untuk OTP yang kritis, sediakan jalur cadangan (SMS atau email).</p></div>
 </div>
 
 <h2 id="auth">1. Autentikasi</h2>
+<p>Semua panggilan API memakai host <code>https://wa-api.instantserver.dev</code>.
+Dashboard admin gateway berada di host lain dan hanya untuk internal kami — Anda tidak perlu akses ke sana.</p>
 <p>Setiap request memakai header <code>Authorization</code> dengan API key workspace Anda.
 Kunci ini hanya berlaku untuk nomor di workspace Anda; request ke nomor pelanggan lain
 ditolak dengan <code>403</code>.</p>
@@ -81,7 +83,7 @@ Setelah status menjadi <code>ready</code>, nomor siap dipakai lewat API.</p>
 
 <h2 id="send">3. Kirim pesan</h2>
 <p><span class="method post">POST</span><span class="ep">/api/sessions/{sessionId}/messages/send-text</span></p>
-<pre><code>curl -X POST "https://wa.instantserver.dev/api/sessions/&lt;SESSION_ID&gt;/messages/send-text" \
+<pre><code>curl -X POST "https://wa-api.instantserver.dev/api/sessions/&lt;SESSION_ID&gt;/messages/send-text" \
   -H "Authorization: Bearer $OPENWA_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"chatId":"6281234567890@c.us","text":"Halo dari Instant Server"}'</code></pre>
@@ -99,7 +101,7 @@ selalu simpan <code>chatId</code> yang diterima dari webhook — jangan menyusun
 
 <h3>Contoh Node.js</h3>
 <pre><code>const res = await fetch(
-  `https://wa.instantserver.dev/api/sessions/${process.env.WA_SESSION_ID}/messages/send-text`,
+  `https://wa-api.instantserver.dev/api/sessions/${process.env.WA_SESSION_ID}/messages/send-text`,
   {
     method: 'POST',
     headers: {
@@ -112,7 +114,7 @@ selalu simpan <code>chatId</code> yang diterima dari webhook — jangan menyusun
 console.log(await res.json());</code></pre>
 
 <h3>Contoh PHP</h3>
-<pre><code>$ch = curl_init("https://wa.instantserver.dev/api/sessions/{$sessionId}/messages/send-text");
+<pre><code>$ch = curl_init("https://wa-api.instantserver.dev/api/sessions/{$sessionId}/messages/send-text");
 curl_setopt_array($ch, [
     CURLOPT_POST =&gt; true,
     CURLOPT_RETURNTRANSFER =&gt; true,
