@@ -7,10 +7,11 @@
    Everything degrades: if Motion fails to load, or the visitor prefers reduced
    motion, the content is simply visible with no animation.
 
-   API note: Motion's inView signature is inView(target, onStart, options) where
-   onStart receives {target}. Passing the callback as the second argument (the
-   "element, callback" habit) silently returns an observer that never calls
-   anything — which looks exactly like "the reveal never fired". */
+   Why IntersectionObserver and not Motion's inView: Motion's inView never fired
+   on this page (verified live — the element was on screen with ratio 0.88 and the
+   callback stayed silent, while a plain IntersectionObserver on the same node
+   fired immediately). Motion is still used for the animation itself; only the
+   trigger is native, so a library quirk cannot leave the page invisible. */
 
 (function () {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -61,32 +62,19 @@
   const items = Array.from(document.querySelectorAll('[data-reveal]'));
   if (!items.length) return;
 
-  const showAll = () => {
-    root.classList.add('no-motion');
-    items.forEach((el) => {
-      el.classList.add('is-in');
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    });
-  };
-
-  if (reduced || !window.Motion || typeof window.Motion.inView !== 'function') {
-    showAll();
-    return;
-  }
-
-  const { animate, inView, stagger } = window.Motion;
-
-  // start displaced
-  items.forEach((el) => {
-    el.style.opacity = '0';
-    el.style.transform = `translateY(${Number(el.getAttribute('data-reveal-y') || 28)}px)`;
-  });
+  const animate = (window.Motion && window.Motion.animate) || null;
 
   const reveal = (el) => {
     if (el.classList.contains('is-in')) return;
     el.classList.add('is-in');
     const dy = Number(el.getAttribute('data-reveal-y') || 28);
+
+    if (!animate) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      return;
+    }
+
     animate(
       el,
       { opacity: [0, 1], transform: [`translateY(${dy}px)`, 'translateY(0px)'] },
@@ -96,38 +84,69 @@
     el.style.transform = 'translateY(0px)';
   };
 
-  // inView(target, onStart, options) — the callback is the SECOND argument and
-  // receives {target}; it fires when the element enters the viewport.
-  inView(items, (entry) => reveal(entry.target), { amount: 0.15 });
+  if (reduced || !('IntersectionObserver' in window)) {
+    root.classList.add('no-motion');
+    items.forEach(reveal);
+    return;
+  }
 
-  // Anything already on screen at load (the hero) must not wait for a scroll.
+  // start displaced
+  items.forEach((el) => {
+    el.style.opacity = '0';
+    el.style.transform = `translateY(${Number(el.getAttribute('data-reveal-y') || 28)}px)`;
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        reveal(entry.target);
+        io.unobserve(entry.target);   // once, then stop watching
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  items.forEach((el) => io.observe(el));
+
+  // Anything already on screen at load must not wait for a scroll event.
   requestAnimationFrame(() => {
     items.forEach((el) => {
       const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight * 0.92 && r.bottom > 0) reveal(el);
+      if (r.top < window.innerHeight * 0.95 && r.bottom > 0) {
+        reveal(el);
+        io.unobserve(el);
+      }
     });
   });
 
-  // Safety net: if a reveal never fired (odd viewport, observer quirk), make
-  // sure nothing stays invisible after a few seconds.
+  // Safety net: nothing may stay invisible. If an element is in the viewport
+  // after a few seconds, show it regardless of the observer.
   setTimeout(() => {
     items.forEach((el) => {
       const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0 && !el.classList.contains('is-in')) reveal(el);
+      if (r.top < window.innerHeight && r.bottom > 0) reveal(el);
     });
-  }, 2600);
+  }, 2200);
 
-  // Stagger the product cards the first time the grid appears.
+  /* ---------- product card stagger ---------- */
   const grid = document.getElementById('grid-vps');
-  if (grid) {
+  if (grid && animate) {
     let done = false;
-    inView(grid, () => {
+    const cards = grid.querySelectorAll('.card');
+    const revealCards = () => {
       if (done) return;
       done = true;
-      animate(grid.querySelectorAll('.card'),
+      animate(cards,
         { opacity: [0, 1], transform: ['translateY(26px)', 'translateY(0px)'] },
-        { duration: 0.6, delay: stagger(0.06), ease: [0.22, 1, 0.36, 1] });
-      grid.querySelectorAll('.card').forEach((c) => { c.style.opacity = '1'; });
-    }, { amount: 0.1 });
+        { duration: 0.6, delay: window.Motion.stagger(0.06), ease: [0.22, 1, 0.36, 1] });
+      cards.forEach((c) => { c.style.opacity = '1'; });
+    };
+
+    const gio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { revealCards(); gio.disconnect(); }
+      });
+    }, { threshold: 0.1 });
+    gio.observe(grid);
+    setTimeout(revealCards, 2600);
   }
 })();
