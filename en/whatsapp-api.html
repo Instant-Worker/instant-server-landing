@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WhatsApp Gateway API — Instant Server</title>
+<meta name="description" content="Instant Server WhatsApp Gateway API documentation: authentication, sending messages, inbound webhooks and code samples.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/legal.css">
+<style>
+  code{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:2px 6px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;color:hsl(40,20%,88%)}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    overflow-x:auto;margin:14px 0}
+  pre code{background:none;border:0;padding:0;font-size:13px;line-height:1.6}
+  .method{display:inline-block;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;
+    letter-spacing:.06em;padding:2px 7px;border-radius:4px;margin-right:8px;vertical-align:2px}
+  .get{background:hsl(200,60%,22%);color:hsl(200,80%,80%)}
+  .post{background:hsl(140,50%,20%);color:hsl(140,70%,78%)}
+  .ep{font-family:ui-monospace,monospace;font-size:14px;color:hsl(40,20%,90%)}
+  .toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 20px;margin:24px 0}
+  .toc ol{margin:6px 0}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://instantserver.dev/"><span class="mark">IS</span> Instant Server</a>
+    <nav><a href="/">Home</a><a href="/en/terms">Terms</a><a href="/en/privacy">Privacy</a><a href="/en/refund">Refunds</a></nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+
+<h1>WhatsApp Gateway API</h1>
+<p class="sub">For <strong>WA Starter</strong>, <strong>WA Business</strong> and <strong>WA Scale</strong> customers.
+The base URL, API key and Session ID for your workspace are on the service page in the billing panel.</p>
+
+<div class="callout"><p><strong>Important:</strong> this gateway runs a WhatsApp Web session on your own number,
+not Meta's official WhatsApp Cloud API. Messages are sent from the number you link by scanning a QR code.
+WhatsApp gives no delivery guarantee and there is no automatic OTP autofill — for critical OTPs,
+provide a fallback channel (SMS or email).</p></div>
+
+<div class="toc">
+  <strong>On this page</strong>
+  <ol>
+    <li><a href="#auth">Authentication</a></li>
+    <li><a href="#link">Linking a number (QR)</a></li>
+    <li><a href="#send">Sending messages</a></li>
+    <li><a href="#read">Reading inbound messages</a></li>
+    <li><a href="#webhook">Webhooks</a></li>
+    <li><a href="#stats">Usage statistics</a></li>
+    <li><a href="#errors">Error codes</a></li>
+  </ol>
+</div>
+
+<h2 id="auth">1. Authentication</h2>
+<p>Every API call uses the host <code>https://wa-api.instantserver.dev</code>.
+The gateway's admin dashboard lives on a different host and is internal-only — you do not need access to it.</p>
+<p>Each request carries an <code>Authorization</code> header with your workspace API key.
+The key only covers the numbers in your workspace; requests for another customer's number
+are rejected with <code>403</code>.</p>
+<pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+<p>Never put the API key in frontend code or a public repository. Store it as an
+environment variable on your server.</p>
+
+<h2 id="link">2. Linking a number (QR)</h2>
+<p>A number is linked once, from the service page in the billing panel:
+open <strong>Services → WhatsApp → Connect</strong>, then scan the QR with
+WhatsApp on your phone (<em>Linked devices → Link a device</em>).
+Once the status reads <code>ready</code>, the number is usable through the API.</p>
+<p>You can read a number's status at any time:</p>
+<p><span class="method get">GET</span><span class="ep">/api/sessions/{sessionId}</span></p>
+<pre><code>{
+  "id": "b0370086-9050-40ff-aa45-3f0034e26738",
+  "name": "is27-my-business-1",
+  "status": "ready",
+  "phone": "6281234567890",
+  "pushName": "My Store"
+}</code></pre>
+
+<h2 id="send">3. Sending messages</h2>
+<p><span class="method post">POST</span><span class="ep">/api/sessions/{sessionId}/messages/send-text</span></p>
+<pre><code>curl -X POST "https://wa-api.instantserver.dev/api/sessions/&lt;SESSION_ID&gt;/messages/send-text" \
+  -H "Authorization: Bearer $OPENWA_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"chatId":"6281234567890@c.us","text":"Hello from Instant Server"}'</code></pre>
+<p>The response contains a <code>messageId</code> and a <code>timestamp</code>:</p>
+<pre><code>{"messageId":"3EB0A1B2C3D4E5F6","timestamp":1761150000}</code></pre>
+
+<h3>chatId format</h3>
+<ul>
+  <li>Personal number: <code>62xxxxxxxxxx@c.us</code> (country code without the <code>+</code>)</li>
+  <li>Group: <code>xxxxxxxxxx@g.us</code> — take it from a webhook or the group list</li>
+</ul>
+<div class="callout"><p>WhatsApp sometimes sends the sender ID as
+<code>&lt;digits&gt;@lid</code>, which is not a phone number. For two-way conversations,
+always store the <code>chatId</code> you receive from the webhook — do not rebuild it from the phone number.</p></div>
+
+<h3>Node.js example</h3>
+<pre><code>const res = await fetch(
+  `https://wa-api.instantserver.dev/api/sessions/${process.env.WA_SESSION_ID}/messages/send-text`,
+  {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.WA_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ chatId: '6281234567890@c.us', text: 'Hello!' }),
+  }
+);
+console.log(await res.json());</code></pre>
+
+<h3>PHP example</h3>
+<pre><code>$ch = curl_init("https://wa-api.instantserver.dev/api/sessions/{$sessionId}/messages/send-text");
+curl_setopt_array($ch, [
+    CURLOPT_POST =&gt; true,
+    CURLOPT_RETURNTRANSFER =&gt; true,
+    CURLOPT_HTTPHEADER =&gt; [
+        "Authorization: Bearer " . $apiKey,
+        'Content-Type: application/json',
+    ],
+    CURLOPT_POSTFIELDS =&gt; json_encode([
+        'chatId' =&gt; '6281234567890@c.us',
+        'text'   =&gt; 'Hello!',
+    ]),
+]);
+echo curl_exec($ch);</code></pre>
+
+<h2 id="read">4. Reading inbound messages</h2>
+<p><span class="method get">GET</span><span class="ep">/api/sessions/{sessionId}/messages?limit=50</span></p>
+<p>Returns the latest messages for that session. For real-time processing,
+use the webhook described in the next section.</p>
+
+<h2 id="webhook">5. Webhooks</h2>
+<p>Webhooks are configured per workspace by us. Send us your receiver URL and we
+register it on your session. Every delivery carries a signature:</p>
+<pre><code>X-OpenWA-Signature: sha256=&lt;hex&gt;
+X-OpenWA-Idempotency-Key: &lt;uuid&gt;</code></pre>
+<p>The signature is an <strong>HMAC-SHA256 of the raw body</strong> using your webhook secret.
+Verify it before processing, and <em>dedupe</em> on the idempotency key.</p>
+<pre><code>const crypto = require('crypto');
+
+function verify(rawBody, header, secret) {
+  const expected = 'sha256=' + crypto
+    .createHmac('sha256', secret)
+    .update(rawBody)
+    .digest('hex');
+  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(header));
+}</code></pre>
+<div class="callout"><p>The <code>data</code> payload is the message from the WhatsApp engine, not a row from the gateway database.
+Use <code>fromMe</code> and <code>isGroup</code> to determine message direction —
+there is no <code>direction</code> field in the payload.</p></div>
+
+<h2 id="stats">6. Usage statistics</h2>
+<p><span class="method get">GET</span><span class="ep">/api/stats/sessions/{sessionId}</span></p>
+<pre><code>{
+  "session": { "id": "...", "name": "is27-my-business-1", "status": "ready" },
+  "messages": { "sent": 128, "received": 96, "today": 14, "failed": 2 }
+}</code></pre>
+
+<h2 id="errors">7. Error codes</h2>
+<table>
+  <thead><tr><th>Code</th><th>Meaning</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>401</td><td>API key is invalid or missing</td><td>Check the Authorization header</td></tr>
+    <tr><td>403</td><td>The key has no rights to that session</td><td>Use the Session ID from your workspace</td></tr>
+    <tr><td>400</td><td>Invalid body, or the session is not ready</td><td>Make sure the number status is <code>ready</code></td></tr>
+    <tr><td>404</td><td>Session not found</td><td>Check the Session ID</td></tr>
+    <tr><td>429</td><td>Too many requests</td><td>Back off and retry</td></tr>
+  </tbody>
+</table>
+
+<h2>Limits worth knowing</h2>
+<ul>
+  <li><strong>No monthly message cap</strong> on our side, but WhatsApp applies
+  its own limits to new numbers. Warm a new number up gradually.</li>
+  <li><strong>One number, one session.</strong> Do not link the same number twice —
+  the previously linked device can be revoked.</li>
+  <li><strong>The first message to a new contact</strong> may not arrive even when the API answers
+  successfully; that is WhatsApp policy, not a gateway fault.</li>
+  <li><strong>Do not use your main number.</strong> Use a number dedicated to this service.</li>
+</ul>
+
+<div class="divider"></div>
+<p class="sub" style="margin-top:28px">Need help? Email
+<a href="mailto:support@instantserver.dev">support@instantserver.dev</a>.</p>
+
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="yr"></span> Instant Server — operated by PT Inovasi Pemuda Bangsa</span>
+    <span><a href="/en/terms">Terms of Service</a> · <a href="/en/privacy">Privacy Policy</a> · <a href="/en/refund">Refund Policy</a></span>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
