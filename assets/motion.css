@@ -1,0 +1,98 @@
+/* Instant Server — motion layer (Motion One) + video showcase styles.
+   Loaded after the inline page CSS so it can build on the existing tokens. */
+
+/* ---------- hero reel ---------- */
+.reel-hero{
+  position:relative;
+  margin:46px auto 0;
+  max-width:1080px;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid var(--line-2);
+  background:#05050a;
+  box-shadow:0 40px 120px -40px rgba(216,178,106,.28), 0 0 0 1px rgba(0,0,0,.5) inset;
+  will-change:transform,opacity;
+}
+.reel-hero video{
+  display:block;width:100%;height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+/* the reel is a poster frame until the user opts in — no autoplaying weight */
+.reel-hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(7,7,11,0) 55%,rgba(7,7,11,.55) 100%);
+}
+.reel-play{
+  position:absolute;inset:0;display:grid;place-items:center;
+  border:0;background:rgba(7,7,11,.34);cursor:pointer;
+  transition:opacity .35s ease, background .35s ease;
+  z-index:2;
+}
+.reel-play:hover{background:rgba(7,7,11,.18)}
+.reel-play[hidden]{display:none}
+.reel-play span{
+  display:grid;place-items:center;
+  width:78px;height:78px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  color:#14100a;font-size:26px;line-height:1;
+  box-shadow:0 18px 50px -12px rgba(216,178,106,.7);
+  transform:translateZ(0);
+}
+.reel-cap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+  margin-top:14px;font-size:12.5px;color:var(--muted);
+}
+.reel-cap .dotline{display:flex;align-items:center;gap:8px}
+.reel-cap i{
+  width:6px;height:6px;border-radius:50%;background:var(--ok);
+  box-shadow:0 0 12px rgba(110,231,168,.8);font-style:normal;
+}
+
+/* ---------- showcase (two-up video + copy) ---------- */
+.showcase{
+  display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;
+  margin-top:28px;
+}
+.showcase.flip .sc-media{order:2}
+.sc-media{
+  position:relative;border-radius:18px;overflow:hidden;
+  border:1px solid var(--line-2);background:#05050a;
+  box-shadow:0 30px 90px -40px rgba(216,178,106,.24);
+  will-change:transform,opacity;
+}
+.sc-media video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.sc-media .badge{
+  position:absolute;top:14px;left:14px;z-index:2;
+  font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold-2);background:rgba(7,7,11,.72);
+  border:1px solid rgba(216,178,106,.4);border-radius:999px;
+  padding:6px 12px;backdrop-filter:blur(8px);
+}
+.sc-copy h3{font-size:clamp(24px,3vw,34px);line-height:1.2;margin-bottom:12px;letter-spacing:-.01em}
+.sc-copy h3 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;color:var(--gold-2)}
+.sc-copy p{color:var(--muted);font-size:15.5px;margin-bottom:18px}
+.sc-list{list-style:none;display:grid;gap:10px;margin-bottom:22px}
+.sc-list li{display:flex;gap:10px;font-size:14.5px;color:#d9d9e2}
+.sc-list li b{color:var(--gold);font-weight:800;flex:0 0 auto}
+.sc-price{display:flex;align-items:baseline;gap:8px;margin-bottom:18px}
+.sc-price b{font-size:38px;font-weight:800;letter-spacing:-.02em}
+.sc-price span{color:var(--muted);font-size:14px}
+.sc-cta{display:flex;gap:10px;flex-wrap:wrap}
+
+/* reveal states — Motion animates from these to the "in" values */
+[data-reveal]{opacity:0}
+[data-reveal].is-in{opacity:1}
+.no-motion [data-reveal]{opacity:1 !important;transform:none !important}
+
+@media (max-width:900px){
+  .showcase{grid-template-columns:1fr;gap:26px}
+  .showcase.flip .sc-media{order:0}
+  .reel-hero{margin-top:32px;border-radius:16px}
+  .reel-play span{width:60px;height:60px;font-size:20px}
+}
+@media (prefers-reduced-motion: reduce){
+  [data-reveal]{opacity:1 !important;transform:none !important}
+  .reel-hero,.sc-media{box-shadow:0 20px 60px -40px rgba(0,0,0,.6)}
+}

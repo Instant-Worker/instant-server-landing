@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/motion.css">
 <style>
   :root{
     --bg:#07070b;
@@ -232,6 +233,24 @@
         <div class="stat"><b>&lt; 60<span style="font-size:.55em">s</span></b><span data-i18n="stat_deploy">Waktu Aktif</span></div>
         <div class="stat"><b>24/7</b><span data-i18n="stat_support">Dukungan</span></div>
         <div class="stat"><b>SSD</b><span data-i18n="stat_disk">Penyimpanan cepat</span></div>
+      </div>
+
+      <!-- HERO REEL -->
+      <div class="reel-hero" data-reveal data-reveal-y="34">
+        <video id="reel-vps" class="reel-video"
+               poster="/assets/video/vps-poster.jpg"
+               preload="none" muted playsinline loop
+               aria-label="Instant Server — cloud server dalam hitungan detik">
+          <source src="/assets/video/vps.webm" type="video/webm">
+          <source src="/assets/video/vps.mp4" type="video/mp4">
+        </video>
+        <button class="reel-play" id="reel-play" type="button" aria-label="Putar video">
+          <span>▶</span>
+        </button>
+      </div>
+      <div class="reel-cap" data-reveal data-reveal-y="18">
+        <span class="dotline"><i></i><span data-i18n="reel_cap1">Deploy sungguhan — 1,4 detik sampai HTTPS aktif</span></span>
+        <span data-i18n="reel_cap2">Tanpa suara · 18 detik</span>
       </div>
     </div>
   </section>
@@ -458,6 +477,51 @@
   </section>
 
 
+  <!-- WHATSAPP SHOWCASE -->
+  <section id="whatsapp">
+    <div class="wrap">
+      <div class="center">
+        <div class="eyebrow" data-i18n="wa_eyebrow">WhatsApp Gateway</div>
+        <h2 data-i18n="wa_title">Nomor WhatsApp Anda, sekarang punya API</h2>
+        <p class="lead" data-i18n="wa_lead">Kirim OTP, notifikasi pesanan, dan pesan broadcast dari nomor Anda sendiri. Satu API key per workspace, QR langsung dari portal, tanpa biaya per pesan.</p>
+      </div>
+
+      <div class="showcase">
+        <div class="sc-media" data-reveal data-reveal-y="40">
+          <span class="badge" data-i18n="wa_badge">Demo</span>
+          <video id="reel-wa" class="reel-video"
+                 poster="/assets/video/wa-poster.jpg"
+                 preload="none" muted playsinline loop
+                 aria-label="WhatsApp Gateway — kirim OTP lewat API">
+            <source src="/assets/video/wa.webm" type="video/webm">
+            <source src="/assets/video/wa.mp4" type="video/mp4">
+          </video>
+          <button class="reel-play" data-play="reel-wa" type="button" aria-label="Putar video">
+            <span>▶</span>
+          </button>
+        </div>
+
+        <div class="sc-copy" data-reveal data-reveal-y="40">
+          <h3 data-i18n-html="wa_h3">Kirim <em>OTP</em> dalam satu panggilan API</h3>
+          <p data-i18n="wa_p">Tautkan nomor Anda lewat scan QR di portal, lalu panggil REST API. Cocok untuk verifikasi login, konfirmasi pesanan, dan pengingat — dari nomor bisnis Anda sendiri.</p>
+          <ul class="sc-list">
+            <li><b>✓</b><span data-i18n="wa_f1">REST API + webhook masuk, satu API key per workspace</span></li>
+            <li><b>✓</b><span data-i18n="wa_f2">QR ditautkan dari portal, tanpa akses dashboard admin</span></li>
+            <li><b>✓</b><span data-i18n="wa_f3">Tanpa biaya per pesan — hanya biaya bulanan per nomor</span></li>
+            <li><b>✓</b><span data-i18n="wa_f4">Statistik pemakaian per nomor di dalam portal</span></li>
+          </ul>
+          <div class="sc-price">
+            <b>$6</b><span data-i18n="wa_from">/bulan untuk 1 nomor</span>
+          </div>
+          <div class="sc-cta">
+            <a class="btn btn-gold" href="https://panel.instantserver.dev/products/whatsapp/wa-starter/checkout" data-i18n="wa_cta1">Mulai dari $6</a>
+            <a class="btn btn-ghost" href="https://instantserver.dev/whatsapp-api" data-i18n="wa_cta2">Baca dokumentasi API</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- BACKUP -->
   <section id="backup">
     <div class="wrap">
@@ -590,6 +654,16 @@ const I18N = {
     f6t:"Panel Sederhana", f6d:"Kelola layanan, tagihan, dan kredensial dari satu dasbor. Buka server Anda dengan satu klik.",
     prod_eyebrow:"Produk", prod_title:"Pilih yang sesuai kebutuhan Anda",
     prod_lead:"Harga per bulan, sudah termasuk bandwidth. Semua server berlokasi di Indonesia. Bisa berhenti kapan saja.",
+    reel_cap1:"Deploy sungguhan — 1,4 detik sampai HTTPS aktif", reel_cap2:"Tanpa suara · 18 detik",
+    wa_eyebrow:"WhatsApp Gateway", wa_title:"Nomor WhatsApp Anda, sekarang punya API",
+    wa_lead:"Kirim OTP, notifikasi pesanan, dan pesan broadcast dari nomor Anda sendiri. Satu API key per workspace, QR langsung dari portal, tanpa biaya per pesan.",
+    wa_badge:"Demo", wa_h3:"Kirim <em>OTP</em> dalam satu panggilan API",
+    wa_p:"Tautkan nomor Anda lewat scan QR di portal, lalu panggil REST API. Cocok untuk verifikasi login, konfirmasi pesanan, dan pengingat — dari nomor bisnis Anda sendiri.",
+    wa_f1:"REST API + webhook masuk, satu API key per workspace",
+    wa_f2:"QR ditautkan dari portal, tanpa akses dashboard admin",
+    wa_f3:"Tanpa biaya per pesan — hanya biaya bulanan per nomor",
+    wa_f4:"Statistik pemakaian per nomor di dalam portal",
+    wa_from:"/bulan untuk 1 nomor", wa_cta1:"Mulai dari $6", wa_cta2:"Baca dokumentasi API",
     tab_vps:"Cloud Server", tab_sto:"Object Storage", tab_wa:"WhatsApp Gateway", per_month:"/bulan", popular:"Paling Populer",
     wa_n1:"1 nomor", wa_n3:"3 nomor", wa_n10:"10 nomor", wa_spec_api:"REST API", wa_spec_hook:"Webhook",
     wa_li1:"1 nomor WhatsApp, tanpa batas pesan",
@@ -664,6 +738,16 @@ const I18N = {
     f6t:"Simple Panel", f6d:"Manage services, invoices, and credentials from one dashboard. Open your server in a single click.",
     prod_eyebrow:"Products", prod_title:"Pick what fits your needs",
     prod_lead:"Monthly pricing, bandwidth included. All servers located in Indonesia. Cancel anytime.",
+    reel_cap1:"Real deploy — 1.4s to live HTTPS", reel_cap2:"Silent · 18 seconds",
+    wa_eyebrow:"WhatsApp Gateway", wa_title:"Your WhatsApp number, now with an API",
+    wa_lead:"Send OTPs, order notifications and broadcasts from your own number. One API key per workspace, QR linking inside the portal, no per-message fee.",
+    wa_badge:"Demo", wa_h3:"Send an <em>OTP</em> in one API call",
+    wa_p:"Link your number by scanning a QR in the portal, then call the REST API. Built for login verification, order confirmations and reminders — from your own business number.",
+    wa_f1:"REST API + inbound webhooks, one API key per workspace",
+    wa_f2:"QR linked from the portal, no admin dashboard access needed",
+    wa_f3:"No per-message fee — a flat monthly price per number",
+    wa_f4:"Per-number usage statistics inside the portal",
+    wa_from:"/month for 1 number", wa_cta1:"Start at $6", wa_cta2:"Read the API docs",
     tab_vps:"Cloud Server", tab_sto:"Object Storage", tab_wa:"WhatsApp Gateway", per_month:"/month", popular:"Most Popular",
     wa_n1:"1 number", wa_n3:"3 numbers", wa_n10:"10 numbers", wa_spec_api:"REST API", wa_spec_hook:"Webhook",
     wa_li1:"1 WhatsApp number, unlimited messages",
@@ -729,6 +813,11 @@ function setLang(lang){
     const k = el.getAttribute('data-i18n');
     if(dict[k] !== undefined) el.textContent = dict[k];
   });
+  // keys whose value intentionally carries markup (e.g. <em> inside a heading)
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-html');
+    if(dict[k] !== undefined) el.innerHTML = dict[k];
+  });
   document.documentElement.setAttribute('data-lang', lang);
   document.documentElement.setAttribute('lang', lang);
   document.getElementById('lang-id').classList.toggle('on', lang==='id');
@@ -756,5 +845,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   setLang(saved);
 })();
 </script>
+<script src="/assets/motion.js" defer></script>
+<script src="/assets/motion-init.js" defer></script>
 </body>
 </html>
