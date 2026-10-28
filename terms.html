@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Syarat Layanan — Instant Server</title>
+<title>Syarat Layanan | Instant Server</title>
 <meta name="description" content="Syarat layanan Instant Server: harga, penagihan, penangguhan, penggunaan yang dapat diterima, SLA dan refund.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,13 +32,18 @@ beserta <a href="/privacy">Kebijakan Privasi</a> dan <a href="/refund">Kebijakan
 <p>Instant Server menyediakan layanan infrastruktur digital berlangganan yang diprovisikan secara
 otomatis melalui panel kami:</p>
 <ul>
-  <li><strong>Cloud Server</strong> — mesin virtual (VPS) dengan alamat IPv4 publik, akses root penuh
-  melalui SSH, penyimpanan NVMe, dan HTTPS otomatis.</li>
-  <li><strong>Object Storage</strong> — penyimpanan objek yang kompatibel dengan S3.</li>
-  <li><strong>Backup Otomatis</strong> — add-on opsional untuk pencadangan berkala (lihat bagian 10).</li>
+  <li><strong>Cloud Server</strong>: container aplikasi dengan subdomain khusus, HTTPS otomatis, dan
+  kemampuan menjalankan image Docker. Ini bukan mesin virtual: tidak ada akses root, tidak ada alamat
+  IPv4 publik, dan tidak ada akses SSH ke host.</li>
+  <li><strong>Object Storage</strong>: penyimpanan objek yang kompatibel dengan S3.</li>
+  <li><strong>WhatsApp Gateway</strong>: API pengiriman pesan melalui nomor WhatsApp yang Anda tautkan
+  sendiri. Ini memakai sesi WhatsApp Web, bukan WhatsApp Business Platform resmi Meta, sehingga tidak
+  ada jaminan pengiriman dari WhatsApp.</li>
+  <li><strong>Backup Otomatis</strong>: add-on opsional untuk pencadangan berkala (lihat bagian 10).</li>
 </ul>
-<p>Layanan berjalan di pusat data di Indonesia. Spesifikasi tiap paket (vCPU, memori, penyimpanan,
-transfer) tercantum pada halaman harga dan menjadi bagian dari perjanjian ini.</p>
+<p>Layanan Cloud Server dan Object Storage berjalan di pusat data Hetzner di Singapura, bukan di
+Indonesia. Spesifikasi tiap paket (vCPU, memori, penyimpanan, transfer) tercantum pada halaman harga
+dan menjadi bagian dari perjanjian ini.</p>
 
 <h2>2. Akun</h2>
 <ul>
@@ -122,7 +127,8 @@ panel dan berlaku pada akhir periode berjalan.</p>
 <h2>8. Tingkat Layanan (SLA) dan Dukungan</h2>
 <ul>
   <li><strong>Target ketersediaan:</strong> 99,9% per bulan untuk konektivitas jaringan dan daya
-  host. Pemeliharaan terjadwal yang diumumkan sebelumnya, gangguan pada layanan pelanggan itu sendiri,
+  host. Ini target operasional internal, bukan SLA berbayar: kami tidak memberikan kredit atau
+  kompensasi bila target ini tidak tercapai. Pemeliharaan terjadwal yang diumumkan sebelumnya, gangguan pada layanan pelanggan itu sendiri,
   dan kegagalan yang disebabkan konfigurasi pelanggan tidak dihitung sebagai downtime.</li>
   <li><strong>Dukungan:</strong> support@instantserver.dev, Senin&ndash;Jumat 09.00&ndash;18.00 WIB (hari libur nasional
   dikecualikan). Target respons pertama maksimal 1 hari kerja dan penyelesaian maksimal 3 hari kerja.</li>

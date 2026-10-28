@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WhatsApp Gateway API — Instant Server</title>
+<title>WhatsApp Gateway API | Instant Server</title>
 <meta name="description" content="Dokumentasi API WhatsApp Gateway Instant Server: autentikasi, kirim pesan, webhook masuk, dan contoh kode.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@ Base URL, API key, dan Session ID untuk workspace Anda ada di halaman layanan pa
 
 <div class="callout"><p><strong>Penting:</strong> gateway ini menjalankan sesi WhatsApp Web pada nomor Anda sendiri,
 bukan WhatsApp Cloud API resmi dari Meta. Pesan dikirim dari nomor yang Anda tautkan lewat scan QR.
-Tidak ada jaminan pengiriman dari WhatsApp dan tidak ada tombol autofill OTP otomatis —
+Tidak ada jaminan pengiriman dari WhatsApp dan tidak ada tombol autofill OTP otomatis,
 untuk OTP yang kritis, sediakan jalur cadangan (SMS atau email).</p></div>
 
 <div class="toc">
@@ -58,7 +58,7 @@ untuk OTP yang kritis, sediakan jalur cadangan (SMS atau email).</p></div>
 
 <h2 id="auth">1. Autentikasi</h2>
 <p>Semua panggilan API memakai host <code>https://wa-api.instantserver.dev</code>.
-Dashboard admin gateway berada di host lain dan hanya untuk internal kami — Anda tidak perlu akses ke sana.</p>
+Dashboard admin gateway berada di host lain dan hanya untuk internal kami, Anda tidak perlu akses ke sana.</p>
 <p>Setiap request memakai header <code>Authorization</code> dengan API key workspace Anda.
 Kunci ini hanya berlaku untuk nomor di workspace Anda; request ke nomor pelanggan lain
 ditolak dengan <code>403</code>.</p>
@@ -93,11 +93,11 @@ Setelah status menjadi <code>ready</code>, nomor siap dipakai lewat API.</p>
 <h3>Format chatId</h3>
 <ul>
   <li>Nomor pribadi: <code>62xxxxxxxxxx@c.us</code> (kode negara tanpa tanda <code>+</code>)</li>
-  <li>Grup: <code>xxxxxxxxxx@g.us</code> — ambil dari webhook atau daftar grup</li>
+  <li>Grup: <code>xxxxxxxxxx@g.us</code>, ambil dari webhook atau daftar grup</li>
 </ul>
 <div class="callout"><p>WhatsApp kadang mengirim ID pengirim dalam format
 <code>&lt;angka&gt;@lid</code> yang bukan nomor telepon. Untuk percakapan dua arah,
-selalu simpan <code>chatId</code> yang diterima dari webhook — jangan menyusunnya ulang dari nomor HP.</p></div>
+selalu simpan <code>chatId</code> yang diterima dari webhook, jangan menyusunnya ulang dari nomor HP.</p></div>
 
 <h3>Contoh Node.js</h3>
 <pre><code>const res = await fetch(
@@ -151,7 +151,7 @@ function verify(rawBody, header, secret) {
   return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(header));
 }</code></pre>
 <div class="callout"><p>Payload <code>data</code> adalah pesan dari engine WhatsApp, bukan baris database gateway.
-Gunakan <code>fromMe</code> dan <code>isGroup</code> untuk menentukan arah pesan —
+Gunakan <code>fromMe</code> dan <code>isGroup</code> untuk menentukan arah pesan,
 tidak ada field <code>direction</code> di payload.</p></div>
 
 <h2 id="stats">6. Statistik pemakaian</h2>
@@ -177,7 +177,7 @@ tidak ada field <code>direction</code> di payload.</p></div>
 <ul>
   <li><strong>Tanpa batas pesan bulanan</strong> dari sisi kami, tetapi WhatsApp memberlakukan
   pembatasan sendiri pada nomor baru. Hangatkan nomor baru secara bertahap.</li>
-  <li><strong>Satu nomor untuk satu sesi.</strong> Jangan menautkan nomor yang sama dua kali —
+  <li><strong>Satu nomor untuk satu sesi.</strong> Jangan menautkan nomor yang sama dua kali,
   perangkat tertaut sebelumnya dapat dicabut.</li>
   <li><strong>Pesan pertama ke kontak baru</strong> bisa tidak sampai walaupun API menjawab sukses;
   itu kebijakan WhatsApp, bukan kesalahan gateway.</li>
@@ -192,7 +192,7 @@ tidak ada field <code>direction</code> di payload.</p></div>
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>© <span id="yr"></span> Instant Server — dioperasikan oleh PT Inovasi Pemuda Bangsa</span>
+    <span>© <span id="yr"></span> Instant Server, dioperasikan oleh PT Inovasi Pemuda Bangsa</span>
     <span><a href="/terms">Syarat Layanan</a> · <a href="/privacy">Kebijakan Privasi</a> · <a href="/refund">Refund</a></span>
   </div>
 </footer>

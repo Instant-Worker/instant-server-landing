@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Terms of Service — Instant Server</title>
+<title>Terms of Service | Instant Server</title>
 <meta name="description" content="Instant Server terms of service: pricing, billing, suspension, acceptable use, SLA and refunds.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,13 +32,18 @@ our <a href="/en/privacy">Privacy Policy</a> and our <a href="/en/refund">Refund
 <p>Instant Server provides subscription-based digital infrastructure, provisioned automatically
 through our panel:</p>
 <ul>
-  <li><strong>Cloud Server</strong> — virtual machines (VPS) with a public IPv4 address, full root
-  access over SSH, NVMe storage and automatic HTTPS.</li>
-  <li><strong>Object Storage</strong> — S3-compatible object storage.</li>
-  <li><strong>Automatic Backup</strong> — optional recurring-backup add-on (see section 10).</li>
+  <li><strong>Cloud Server</strong>: application containers with a dedicated subdomain, automatic
+  HTTPS, and the ability to run Docker images. These are not virtual machines: there is no root
+  access, no public IPv4 address, and no SSH access to the host.</li>
+  <li><strong>Object Storage</strong>: S3-compatible object storage.</li>
+  <li><strong>WhatsApp Gateway</strong>: a messaging API over a WhatsApp number you link yourself.
+  It uses a WhatsApp Web session, not Meta's official WhatsApp Business Platform, so WhatsApp gives
+  no delivery guarantee.</li>
+  <li><strong>Automatic Backup</strong>: optional recurring-backup add-on (see section 10).</li>
 </ul>
-<p>Services run in a data centre in Indonesia. The specifications of each plan (vCPU, memory,
-storage, transfer) are listed on the pricing page and form part of this agreement.</p>
+<p>Cloud Server and Object Storage run in a Hetzner data centre in Singapore, not in Indonesia. The
+specifications of each plan (vCPU, memory, storage, transfer) are listed on the pricing page and form
+part of this agreement.</p>
 
 <h2>2. Accounts</h2>
 <ul>
@@ -119,7 +124,8 @@ panel and takes effect at the end of the current period.</p>
 <h2>8. Service Level and Support</h2>
 <ul>
   <li><strong>Availability target:</strong> 99.9% per month for network connectivity and host power.
-  Announced scheduled maintenance, faults in your own service, and failures caused by your
+  This is an internal operating target, not a paid SLA: we do not issue credits or compensation if it
+  is missed. Announced scheduled maintenance, faults in your own service, and failures caused by your
   configuration do not count as downtime.</li>
   <li><strong>Support:</strong> support@instantserver.dev, Monday&ndash;Friday 09:00&ndash;18:00 WIB (Indonesian
   public holidays excluded). First-response target within 1 business day, resolution within 3

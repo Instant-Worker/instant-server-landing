@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WhatsApp Gateway API — Instant Server</title>
+<title>WhatsApp Gateway API | Instant Server</title>
 <meta name="description" content="Instant Server WhatsApp Gateway API documentation: authentication, sending messages, inbound webhooks and code samples.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@ The base URL, API key and Session ID for your workspace are on the service page 
 
 <div class="callout"><p><strong>Important:</strong> this gateway runs a WhatsApp Web session on your own number,
 not Meta's official WhatsApp Cloud API. Messages are sent from the number you link by scanning a QR code.
-WhatsApp gives no delivery guarantee and there is no automatic OTP autofill — for critical OTPs,
+WhatsApp gives no delivery guarantee and there is no automatic OTP autofill, for critical OTPs,
 provide a fallback channel (SMS or email).</p></div>
 
 <div class="toc">
@@ -58,7 +58,7 @@ provide a fallback channel (SMS or email).</p></div>
 
 <h2 id="auth">1. Authentication</h2>
 <p>Every API call uses the host <code>https://wa-api.instantserver.dev</code>.
-The gateway's admin dashboard lives on a different host and is internal-only — you do not need access to it.</p>
+The gateway's admin dashboard lives on a different host and is internal-only, you do not need access to it.</p>
 <p>Each request carries an <code>Authorization</code> header with your workspace API key.
 The key only covers the numbers in your workspace; requests for another customer's number
 are rejected with <code>403</code>.</p>
@@ -93,11 +93,11 @@ Once the status reads <code>ready</code>, the number is usable through the API.<
 <h3>chatId format</h3>
 <ul>
   <li>Personal number: <code>62xxxxxxxxxx@c.us</code> (country code without the <code>+</code>)</li>
-  <li>Group: <code>xxxxxxxxxx@g.us</code> — take it from a webhook or the group list</li>
+  <li>Group: <code>xxxxxxxxxx@g.us</code>, take it from a webhook or the group list</li>
 </ul>
 <div class="callout"><p>WhatsApp sometimes sends the sender ID as
 <code>&lt;digits&gt;@lid</code>, which is not a phone number. For two-way conversations,
-always store the <code>chatId</code> you receive from the webhook — do not rebuild it from the phone number.</p></div>
+always store the <code>chatId</code> you receive from the webhook, do not rebuild it from the phone number.</p></div>
 
 <h3>Node.js example</h3>
 <pre><code>const res = await fetch(
@@ -151,7 +151,7 @@ function verify(rawBody, header, secret) {
   return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(header));
 }</code></pre>
 <div class="callout"><p>The <code>data</code> payload is the message from the WhatsApp engine, not a row from the gateway database.
-Use <code>fromMe</code> and <code>isGroup</code> to determine message direction —
+Use <code>fromMe</code> and <code>isGroup</code> to determine message direction,
 there is no <code>direction</code> field in the payload.</p></div>
 
 <h2 id="stats">6. Usage statistics</h2>
@@ -177,7 +177,7 @@ there is no <code>direction</code> field in the payload.</p></div>
 <ul>
   <li><strong>No monthly message cap</strong> on our side, but WhatsApp applies
   its own limits to new numbers. Warm a new number up gradually.</li>
-  <li><strong>One number, one session.</strong> Do not link the same number twice —
+  <li><strong>One number, one session.</strong> Do not link the same number twice,
   the previously linked device can be revoked.</li>
   <li><strong>The first message to a new contact</strong> may not arrive even when the API answers
   successfully; that is WhatsApp policy, not a gateway fault.</li>
@@ -192,7 +192,7 @@ there is no <code>direction</code> field in the payload.</p></div>
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>© <span id="yr"></span> Instant Server — operated by PT Inovasi Pemuda Bangsa</span>
+    <span>© <span id="yr"></span> Instant Server, operated by PT Inovasi Pemuda Bangsa</span>
     <span><a href="/en/terms">Terms of Service</a> · <a href="/en/privacy">Privacy Policy</a> · <a href="/en/refund">Refund Policy</a></span>
   </div>
 </footer>
