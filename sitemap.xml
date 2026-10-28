@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://instantserver.dev/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://instantserver.dev/whatsapp-api</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://instantserver.dev/whatsapp-api"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://instantserver.dev/en/whatsapp-api"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://instantserver.dev/en/whatsapp-api</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://instantserver.dev/whatsapp-api"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://instantserver.dev/en/whatsapp-api"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://instantserver.dev/terms</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://instantserver.dev/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://instantserver.dev/en/terms"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://instantserver.dev/en/terms</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://instantserver.dev/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://instantserver.dev/en/terms"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://instantserver.dev/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://instantserver.dev/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://instantserver.dev/en/privacy"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://instantserver.dev/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://instantserver.dev/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://instantserver.dev/en/privacy"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://instantserver.dev/refund</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://instantserver.dev/refund"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://instantserver.dev/en/refund"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://instantserver.dev/en/refund</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://instantserver.dev/refund"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://instantserver.dev/en/refund"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+</urlset>

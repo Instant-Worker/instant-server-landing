@@ -1,0 +1,13 @@
+{
+  "name": "Instant Server",
+  "short_name": "Instant Server",
+  "description": "Cloud server, object storage kompatibel S3, dan API WhatsApp dalam satu tagihan bulanan.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#08080c",
+  "theme_color": "#08080c",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
